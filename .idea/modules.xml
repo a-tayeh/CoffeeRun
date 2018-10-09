@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/android/android.iml" filepath="$PROJECT_DIR$/android/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ones-and-zer0es.iml" filepath="$PROJECT_DIR$/ones-and-zer0es.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project-ones-zeros.iml" filepath="$PROJECT_DIR$/project-ones-zeros.iml" />
     </modules>
   </component>
 </project>

@@ -3,6 +3,7 @@ package com.cmsc355.coffeerun.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,6 +36,8 @@ public class Hud {
     private Label worldLabel;
     private Label marioLabel;
 
+
+
     public Hud(SpriteBatch sb){
         //define our tracking variables
         worldTimer = 300;
@@ -55,22 +58,22 @@ public class Hud {
         table.setFillParent(true);
 
         //define our labels using the String, and a Label style consisting of a font and color
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel =new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        marioLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //scoreLabel =new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //marioLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(marioLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
-        //add a second row to our table
-        table.row();
-        table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countdownLabel).expandX();
+//        table.add(marioLabel).expandX().padTop(10);
+//        table.add(worldLabel).expandX().padTop(10);
+//        table.add(timeLabel).expandX().padTop(10);
+//        //add a second row to our table
+//        table.row();
+//        table.add(scoreLabel).expandX();
+//        table.add(levelLabel).expandX();
+//        table.add(countdownLabel).expandX();
 
         //add our table to the stage
         stage.addActor(table);
