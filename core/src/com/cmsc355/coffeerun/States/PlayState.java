@@ -13,6 +13,7 @@ public class PlayState extends State {
     private Student student;
     private float health = 1; //0 = dead, 1 = full health
     private int timeCount = 0;
+    private Texture healthBar;
 
 
     private Texture ingameBackground;  // our actual ingame background
@@ -26,11 +27,15 @@ public class PlayState extends State {
         student = new Student(70,50);
 
         ingameBackground = new Texture("mario.jpeg");
-        cam.setToOrtho(false, Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+
+        // this allows us to use an image to represent our healthbar
+        healthBar = new Texture("plain-white-background.jpg");
+
+        cam.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
         // setWrap wraps our background and backgroundSprite actually sets it as our moving background
         ingameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-        backgroundSprite = new Sprite(ingameBackground, 0,0, 600 , 400);
+        backgroundSprite = new Sprite(ingameBackground, 0,0, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
 
 
 
@@ -94,7 +99,11 @@ public class PlayState extends State {
 //
 //
 //        if((CoffeeRun.V_WIDTH-100)*health >0)
-            sb.draw(ingameBackground,CoffeeRun.V_WIDTH-100,CoffeeRun.V_HEIGHT-1,(CoffeeRun.V_WIDTH -320)* health, 10);
+
+
+
+        // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
+        sb.draw(healthBar,CoffeeRun.V_WIDTH+500,CoffeeRun.V_HEIGHT-100,(CoffeeRun.V_WIDTH -320)* health, 20);
 
 
         sb.draw(student.getStudent(), student.getPosition().x/5, student.getPosition().y/5, student.getStudent().getWidth()/5,student.getStudent().getHeight()/5);
