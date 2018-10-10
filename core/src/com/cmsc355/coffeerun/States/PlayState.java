@@ -5,12 +5,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.cmsc355.coffeerun.CoffeeRun;
+import com.cmsc355.coffeerun.Sprites.Obstacles;
 import com.cmsc355.coffeerun.Sprites.Student;
 
 public class PlayState extends State {
+
     //CoffeeRun game;
+    private static final int OBSTACLE_SPACE = 500;
+    private static final int OBSTACLE_COUNT = 4;
+    private Array<Obstacles> obstacles;
     private Student student;
+    private Obstacles obstacle;
     private float health = 1; //0 = dead, 1 = full health
     private int timeCount = 0;
     private Texture healthBar;
@@ -25,6 +32,12 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         student = new Student(70,50);
+//        obstacle = new Obstacles(500);
+
+        obstacles = new Array<Obstacles>();
+        for(int i = 1;i<OBSTACLE_COUNT;i++){
+            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
+        }
 
         ingameBackground = new Texture("mario.jpeg");
 
@@ -54,13 +67,21 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         handleInput();
+        student.update(dt);
+//        cam.position.x = student.getPosition().x+1;
+
         if(health*(CoffeeRun.V_WIDTH -100)>0)
             health-=.004;
 //        if ((CoffeeRun.V_WIDTH-100)*health <=0)
 //            System.out.println(CoffeeRun.V_WIDTH*health);
         timeCount += dt;
 
-        student.update(dt);
+        for(Obstacles obstacle : obstacles){
+            if(cam.position.x - (cam.viewportWidth/2)> obstacle.getBtmPos().x + obstacle.getBtmObstacle().getWidth()){
+                obstacle.reposition(obstacle.getBtmPos().x +  ((52+OBSTACLE_SPACE) *  OBSTACLE_COUNT));
+            }
+        }
+        cam.update();
 
     }
 
@@ -87,6 +108,10 @@ public class PlayState extends State {
         backgroundSprite.setU(scrollTime);
         backgroundSprite.setU2(scrollTime+10);
         sb.draw(backgroundSprite,0,0);
+//        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
+        for(Obstacles obstacle : obstacles){
+            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x, obstacle.getBtmPos().y);
+        }
         //        if(timeCount<1){
 //            sb.setColor(Color.GREEN);
 //        }
