@@ -12,7 +12,7 @@ import com.cmsc355.coffeerun.States.MenuState;
 
 public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdaptor
 	public static final int V_WIDTH = 480;
-	public static final int V_HEIGHT = 200;
+	public static final int V_HEIGHT = 800;
 
 
 	private GameStateManager gsm;
