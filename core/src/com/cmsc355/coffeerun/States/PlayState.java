@@ -41,7 +41,12 @@ public class PlayState extends State {
 
 
     }
-
+    protected PlayState(GameStateManager gsm, Texture selectedchar){
+        super(gsm);
+        student = new Student(70,50, selectedchar);
+        cam.setToOrtho(false, Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        blank = new Texture("plain-white-background.jpg");
+    }
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){

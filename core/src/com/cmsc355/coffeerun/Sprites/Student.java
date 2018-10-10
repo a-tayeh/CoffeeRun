@@ -18,7 +18,11 @@ public class Student extends Sprite {
         student = new Texture("peach.png");
 
     }
-
+    public Student(int x, int y, Texture sp){
+        position = new Vector3(x,y,0);
+        velocity = new Vector3(0,0,0);
+        student = sp;
+    }
     public void update(float dt)
     {
         if(position.y>70) {
