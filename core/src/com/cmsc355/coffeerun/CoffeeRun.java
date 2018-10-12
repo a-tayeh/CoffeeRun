@@ -11,10 +11,10 @@ import com.cmsc355.coffeerun.States.GameStateManager;
 import com.cmsc355.coffeerun.States.MenuState;
 
 public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdaptor
-	public static final int V_WIDTH = 480;
-	public static final int V_HEIGHT = 800;
+	public static int V_WIDTH =0;
+	public static int V_HEIGHT = 0;
 
-
+	//DisplayMetrics metrics = new DisplayMetrics();
 	private GameStateManager gsm;
 	public SpriteBatch batch;
 
@@ -31,6 +31,9 @@ public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdap
         gsm.push(new MenuState(gsm));
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
+		V_WIDTH = Gdx.graphics.getWidth();
+		V_HEIGHT = Gdx.graphics.getHeight();
+
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdap
         gsm.render(batch);
 		super.render();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();

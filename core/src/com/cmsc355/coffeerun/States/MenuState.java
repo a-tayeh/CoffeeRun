@@ -34,6 +34,7 @@ public class MenuState extends State {
     public void update(float dt) {
         handleInput();
 
+
     }
 
     @Override
