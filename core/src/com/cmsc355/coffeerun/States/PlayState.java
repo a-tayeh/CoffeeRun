@@ -1,12 +1,13 @@
 package com.cmsc355.coffeerun.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.cmsc355.coffeerun.CoffeeRun;
+//import com.cmsc355.coffeerun.CoffeeRun;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
 import com.cmsc355.coffeerun.Sprites.Student;
 
@@ -31,9 +32,9 @@ public class PlayState extends State {
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
-        student = new Student(70,50);
+        student = new Student(Gdx.graphics.getWidth()/5,Gdx.graphics.getHeight()/5); //recongigure this for every screen (screemheight/8)
 //        obstacle = new Obstacles(500);
-
+        cam.setToOrtho(false, Gdx.graphics.getWidth()/5, Gdx.graphics.getHeight());
         obstacles = new Array<Obstacles>();
         for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
@@ -48,7 +49,8 @@ public class PlayState extends State {
 
         // setWrap wraps our background and backgroundSprite actually sets it as our moving background
         ingameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-        backgroundSprite = new Sprite(ingameBackground, 0,0, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+        //why the fuck is the image being weird
+        backgroundSprite = new Sprite(ingameBackground, 0,-600, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
 
 
 
@@ -68,9 +70,12 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         student.update(dt);
-//        cam.position.x = student.getPosition().x+1;
+        //make sure this constanct doesnt mess with size
+        //of different screents
+       //make hump
+        //cam.position.set(student.getX(), cam.viewportHeight / 2, 0);
 
-        if(health*(CoffeeRun.V_WIDTH -100)>0)
+        if(health*(Gdx.graphics.getWidth() -100)>0)
             health-=.004;
 //        if ((CoffeeRun.V_WIDTH-100)*health <=0)
 //            System.out.println(CoffeeRun.V_WIDTH*health);
@@ -128,10 +133,10 @@ public class PlayState extends State {
 
 
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
-        sb.draw(healthBar,CoffeeRun.V_WIDTH+500,CoffeeRun.V_HEIGHT-100,(CoffeeRun.V_WIDTH -320)* health, 20);
+        sb.draw(healthBar,Gdx.graphics.getWidth()-(Gdx.graphics.getWidth()/4),Gdx.graphics.getHeight()-100,(Gdx.graphics.getWidth()/3-(Gdx.graphics.getWidth()/8))* health, 60);
 
-
-        sb.draw(student.getStudent(), student.getPosition().x/5, student.getPosition().y/5, student.getStudent().getWidth()/5,student.getStudent().getHeight()/5);
+        //Gdx.getGraphic. ->can get height and width of any emulator that we use
+        sb.draw(student.getStudent(), student.getPosition().x/5, student.getPosition().y/5, (Gdx.graphics.getWidth()/10),(Gdx.graphics.getWidth()/10));
         sb.end();
 
     }

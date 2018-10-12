@@ -10,6 +10,7 @@ import java.util.Random;
 public class Obstacles extends Sprite {
     private Texture btmObstacle;
     private Vector2 btmPos;
+    //include something like a tube gap to prevent images touching each other
     private Random rand;
     private Vector3 position;
     private Vector3 velocity;
