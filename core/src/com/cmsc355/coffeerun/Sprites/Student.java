@@ -8,6 +8,9 @@ import java.awt.TextArea;
 
 public class Student extends Sprite {
     private static final int GRAVITY = -100;
+    private static final int MOVEMENT = -100;
+
+
     private Vector3 position;
     private Vector3 velocity;
 
