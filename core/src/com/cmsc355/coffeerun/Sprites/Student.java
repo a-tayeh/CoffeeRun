@@ -30,7 +30,7 @@ public class Student extends Sprite {
     public Student(int x, int y, Texture sp){
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
-        student = sp;
+        student = new Texture(sp.getTextureData());
     }
     public void update(float dt)
     {

@@ -59,8 +59,24 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gsm, Texture selectedchar){
         super(gsm);
         student = new Student(70,50, selectedchar);
-        cam.setToOrtho(false, Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-        blank = new Texture("plain-white-background.jpg");
+        cam.setToOrtho(false, Gdx.graphics.getWidth()/5, Gdx.graphics.getHeight());
+        obstacles = new Array<Obstacles>();
+        for(int i = 1;i<OBSTACLE_COUNT;i++){
+            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
+        }
+
+        ingameBackground = new Texture("mario.jpeg");
+
+        // this allows us to use an image to represent our healthbar
+        healthBar = new Texture("plain-white-background.jpg");
+
+        cam.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        // setWrap wraps our background and backgroundSprite actually sets it as our moving background
+        ingameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
+        //why the fuck is the image being weird
+        backgroundSprite = new Sprite(ingameBackground, 0,-600, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+
     }
     @Override
     protected void handleInput() {
