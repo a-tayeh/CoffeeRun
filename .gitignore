@@ -31,6 +31,9 @@ www-test/
 /android/out/
 com_crashlytics_export_strings.xml
 
+# Local configuration file (sdk path, etc)
+local.properties
+
 ## Eclipse
 
 .classpath
@@ -108,7 +111,6 @@ gradle-app.setting
 /html/build/
 /ios/build/
 /ios-moe/build/
-local.properties
 
 ## OS Specific
 .DS_Store
