@@ -33,4 +33,9 @@ public class GameStateManager {
         states.peek().render(sb);
 
     }
+
+
+    public String getCurrentState(){
+        return states.toString();
+    }
 }
