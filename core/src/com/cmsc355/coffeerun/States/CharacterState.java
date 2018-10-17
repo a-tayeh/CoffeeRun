@@ -1,6 +1,7 @@
 package com.cmsc355.coffeerun.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -18,6 +19,12 @@ public class CharacterState extends State {
         char2 = new Texture("orange.png");
         bg = new Texture("mario.jpeg");
         clickposition = new Vector3();
+    }
+
+
+    public CharacterState(GameStateManager gsm, Input input){
+        super(gsm);
+        //gsm.push(new CharacterState(gsm, input));
     }
     protected void handleInput() {
         if(Gdx.input.justTouched()) {
@@ -53,5 +60,9 @@ public class CharacterState extends State {
         bg.dispose();
         char1.dispose();
         char2.dispose();
+    }
+
+    public String getCurrentState() {
+        return gsm.getCurrentState();
     }
 }

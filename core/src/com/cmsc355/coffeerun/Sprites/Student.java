@@ -32,6 +32,18 @@ public class Student extends Sprite {
         velocity = new Vector3(0,0,0);
         student = new Texture(sp.getTextureData());
     }
+
+
+//    //testing constructor
+    public Student(int x, int y, int z) {
+        position = new Vector3(x, y, 0);
+        velocity = new Vector3(0, 0, 0);
+    }
+//    public Student(int x, int y, Texture sp){
+//        position = new Vector3(x,y,0);
+//        velocity = new Vector3(0,0,0);
+//        student = new Texture(sp.getTextureData());
+//    }
     public void update(float dt)
     {
 
@@ -51,6 +63,10 @@ public class Student extends Sprite {
 
     public Vector3 getPosition() {
         return position;
+    }
+
+    public Vector3 getVelocity() {
+        return velocity;
     }
 
     public Texture getStudent(){

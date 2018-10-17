@@ -65,17 +65,18 @@ public class MenuStateTest{
         Input mockInput = Mockito.mock(Input.class);
         when(mockInput.getX()).thenReturn(50);
         when(mockInput.getY()).thenReturn(50);
-        SpriteBatch sb = Mockito.mock(SpriteBatch.class);
+        //SpriteBatch sb = Mockito.mock(SpriteBatch.class);
         Texture texture = Mockito.mock(Texture.class);
         when(texture.getWidth()).thenReturn(300);
         when(texture.getHeight()).thenReturn(300);
 
         //get rid of draw
-        sb.draw(texture,texture.getWidth() / 2 - (texture.getWidth() / 2), texture.getHeight() / 2 - (texture.getHeight() / 2));
+        //sb.draw(texture,texture.getWidth() / 2 - (texture.getWidth() / 2), texture.getHeight() / 2 - (texture.getHeight() / 2));
 
         //Vector3 vector3 = Mockito.mock(Vector3.class);
 
         State state = Mockito.mock(PlayState.class);
+
         Gdx.graphics = Mockito.mock(Graphics.class);
         when(Gdx.graphics.getWidth()).thenReturn(50);
         when(Gdx.graphics.getWidth()).thenReturn(50);
@@ -86,8 +87,10 @@ public class MenuStateTest{
         MenuState menuState = new MenuState(gsm, mockInput);
         //menuState.setClickposition(50,50,0);
         menuState.doHandleInput(texture,1, state, false);
-        when(state.toString()).thenReturn("playState");
-        assertEquals(gsm.getCurrentState(),menuState.getCurrentState());
+        //when(state.toString()).thenReturn("playState");
+
+
+        assertEquals(gsm.getCurrentState(),"[" + state.toString() + "]");
     }
 
     @Test
