@@ -1,7 +1,10 @@
 package com.cmsc355.coffeerun.States;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import org.junit.Before;
@@ -53,7 +56,61 @@ public class CharacterStateTest{
         System.out.println(gsm.getCurrentState());
     }
 
+    @Test
+    public void chooseCharacter1Test(){
+        Gdx.graphics = Mockito.mock(Graphics.class);
 
+        when(Gdx.graphics.getWidth()).thenReturn(500);
+        Input mockInput = Mockito.mock(Input.class);
+        when(mockInput.getX()).thenReturn(50);
+        when(mockInput.getY()).thenReturn(50);
+        Texture texture = Mockito.mock(Texture.class);
+//        when(texture.getWidth()).thenReturn(300);
+//        when(texture.getHeight()).thenReturn(300);
+
+        when(mockInput.justTouched()).thenReturn(true);
+        State state = Mockito.mock(PlayState.class);
+
+        gsm.push(state);
+        CharacterState characterState = new CharacterState(gsm, mockInput,1);
+        characterState.doHandleInput( state, 1,false);
+
+
+        when(state.toString()).thenReturn("characterState");
+        assertEquals(gsm.getCurrentState(),"[" + state.toString() + "]");
+
+
+
+
+
+    }
+
+
+    @Test
+    public void chooseCharacter2Test(){
+        Gdx.graphics = Mockito.mock(Graphics.class);
+
+        when(Gdx.graphics.getWidth()).thenReturn(500);
+        Input mockInput = Mockito.mock(Input.class);
+        when(mockInput.getX()).thenReturn(400);
+        when(mockInput.getY()).thenReturn(400);
+        Texture texture = Mockito.mock(Texture.class);
+//        when(texture.getWidth()).thenReturn(300);
+//        when(texture.getHeight()).thenReturn(300);
+
+        when(mockInput.justTouched()).thenReturn(true);
+        State state = Mockito.mock(PlayState.class);
+
+        gsm.push(state);
+        CharacterState characterState = new CharacterState(gsm, mockInput,1);
+        characterState.doHandleInput( state, 2,false);
+
+
+        when(state.toString()).thenReturn("characterState");
+        assertEquals(gsm.getCurrentState(),"[" + state.toString() + "]");
+        
+
+    }
 
 
     @Test

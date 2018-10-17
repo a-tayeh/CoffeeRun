@@ -43,7 +43,7 @@ public class PlayStateTest{
     @Test
     public void dispose() {
     }
-    
+
     @Test
     public void testOne_ClickOnPlayState_StudentJump() {
         Input mockInput = Mockito.mock(Input.class);
