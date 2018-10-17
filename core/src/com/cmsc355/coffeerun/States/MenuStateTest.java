@@ -56,78 +56,7 @@ public class MenuStateTest{
     public void dispose() {
     }
 
-    @Test
-    public void testGameStateStack_OnMenu(){
-        MenuState menu = new MenuState(gsm,"","",""); //constructor with not texture instantiated
-        menu.setCurrentState(menu);
-        String gsmStateString = gsm.getCurrentState();
-        gsmStateString = gsmStateString.substring(1, gsmStateString.length()-1);
 
-
-
-        System.out.println(gsmStateString);
-        System.out.println(menu);
-        assertEquals(gsmStateString,menu.toString());
-    }
-
-    @Test
-    public void testGameStateStack_OnMenu_Mockito(){
-        MenuState menuState = Mockito.mock(MenuState.class);
-
-        //Mockito.doCallRealMethod().when(menuState).setCurrentState(Mockito.any(MenuState.class));
-        //menuState.setCurrentState(menuState);
-        gsm.push(menuState);
-
-        //(menuState).setCurrentState(menuState);
-        String gsmStateString = gsm.getCurrentState();
-        String menuStateString = menuState.toString();
-
-
-        gsmStateString = gsmStateString.substring(1, gsmStateString.length()-1);
-        when(menuState.getCurrentState()).thenReturn(menuStateString);
-        assertEquals(gsmStateString, menuState.getCurrentState());
-    }
-
-    @Test
-    public void testGameStateStack_ClickOnPlayState(){
-       MenuState menuState = Mockito.mock(MenuState.class);
-
-       //Texture texture = when(menuState.getPlayButton()).thenReturn();
-        menuState.clickPlaybutton();
-
-        //assertEquals(gsm.getCurrentState().toString());
-       //Texture playButton = new Texture(Gdx.graphics.getWidth()/2 - (playButton.getWidth()/2), Gdx.graphics.getHeight()/2-(playButton.getHeight()/2), "playbuttonsmall.png");
-      // menuState.setClickposition(Gdx.graphics.getWidth()/2 - (playButton.getWidth()/2),Gdx.graphics.getHeight()/2-(playButton.getHeight()/2),0);
-
-       //when(menuState.getCurrentState()).thenReturn();
-        String gsmStateString = gsm.getCurrentState();
-        //gsm.push(Mockito.mock(PlayState.class));
-        String gameStateString = gsm.getCurrentState();
-
-        //TODO
-        //have menu state create textures
-        //access texture positions in order to simulate clicking it
-        //check to make sure the the gsm has a PlayState in class
-        //what kind of assertion do I make?
-        //assertTrue(check to see if the reference contains the word PlayState)
-
-    }
-
-    @Test
-    public void testGameStateStack_ClickOnCharacterState(){
-        MenuState menuState = Mockito.mock(MenuState.class);
-
-
-
-        //Texture playButton = new Texture(Gdx.graphics.getWidth()/2 - (playButton.getWidth()/2), Gdx.graphics.getHeight()/2-(playButton.getHeight()/2), "playbuttonsmall.png");
-        // menuState.setClickposition(Gdx.graphics.getWidth()/2 - (playButton.getWidth()/2),Gdx.graphics.getHeight()/2-(playButton.getHeight()/2),0);
-        menuState.clickCharacterbutton();
-        //when(menuState.getCurrentState()).thenReturn();
-        gsm.push(Mockito.mock(PlayState.class));
-        String gameStateString = gsm.getCurrentState();
-
-
-    }
 
 
 
