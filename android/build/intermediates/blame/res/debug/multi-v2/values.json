@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/alitayeh/Desktop/CoffeeRun/project-ones-zeros/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/rashasaadeh/Desktop/Current/project-ones-zeros/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/alitayeh/Desktop/CoffeeRun/project-ones-zeros/android/res/values/styles.xml",
+                    "source": "/Users/rashasaadeh/Desktop/Current/project-ones-zeros/android/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "56",
+                        "endColumns": "46",
+                        "endOffsets": "98"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "46",
+                        "endOffsets": "97"
+                    }
+                },
+                {
+                    "source": "/Users/rashasaadeh/Desktop/Current/project-ones-zeros/android/res/values/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,23 +37,6 @@
                         "endLines": "10",
                         "endColumns": "12",
                         "endOffsets": "560"
-                    }
-                },
-                {
-                    "source": "/Users/alitayeh/Desktop/CoffeeRun/project-ones-zeros/android/res/values/strings.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "56",
-                        "endColumns": "46",
-                        "endOffsets": "98"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "46",
-                        "endOffsets": "97"
                     }
                 }
             ]

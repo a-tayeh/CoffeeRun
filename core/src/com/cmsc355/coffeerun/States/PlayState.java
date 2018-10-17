@@ -49,7 +49,7 @@ public class PlayState extends State {
 
         // setWrap wraps our background and backgroundSprite actually sets it as our moving background
         ingameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-        //why the fuck is the image being weird
+        //why the is the image being weird
         backgroundSprite = new Sprite(ingameBackground, 0,-600, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
 
 
