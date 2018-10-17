@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rashasaadeh/Desktop/Current/project-ones-zeros/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/rashasaadeh/Desktop/fakeCoffeeRun/project-ones-zeros/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/rashasaadeh/Desktop/Current/project-ones-zeros/android/res/values/strings.xml",
+                    "source": "/Users/rashasaadeh/Desktop/fakeCoffeeRun/project-ones-zeros/android/res/values/strings.xml",
                     "from": {
                         "startLines": "3",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/rashasaadeh/Desktop/Current/project-ones-zeros/android/res/values/styles.xml",
+                    "source": "/Users/rashasaadeh/Desktop/fakeCoffeeRun/project-ones-zeros/android/res/values/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
