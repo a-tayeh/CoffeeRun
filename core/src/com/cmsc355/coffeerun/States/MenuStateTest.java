@@ -96,8 +96,6 @@ public class MenuStateTest{
     @Test
     public void testOne_ClickOnCharacterState() {
         Input mockInput = Mockito.mock(Input.class);
-        when(mockInput.getX()).thenReturn(50);
-        when(mockInput.getY()).thenReturn(50);
         SpriteBatch sb = Mockito.mock(SpriteBatch.class);
         Texture texture = Mockito.mock(Texture.class);
         when(texture.getWidth()).thenReturn(300);
