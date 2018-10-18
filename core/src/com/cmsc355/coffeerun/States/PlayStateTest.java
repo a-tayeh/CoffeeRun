@@ -19,30 +19,8 @@ import static org.mockito.Mockito.when;
 public class PlayStateTest{
     GameStateManager gsm = new GameStateManager();
     MenuState menu;
-//    public MenuStateTest(GameStateManager gsm) {
-//        super(gsm);
-//    }
 
-    @Before
-    public void setUp() throws Exception {
-        //menu = new MenuState(gsm);
-    }
 
-    @Test
-    public void handleInput() {
-    }
-
-    @Test
-    public void update() {
-    }
-
-    @Test
-    public void render() {
-    }
-
-    @Test
-    public void dispose() {
-    }
 
     @Test
     public void testOne_ClickOnPlayState_StudentJump() {
@@ -84,7 +62,7 @@ public class PlayStateTest{
         PlayState playState = new PlayState(gsm,input,student);
         //when(playState.getHealth()).thenReturn(1f);
         playState.decrementHealth(Gdx.graphics);
-        System.out.println(playState.getHealth());
+//        System.out.println(playState.getHealth());
         assertTrue(playState.getHealth() < 1);
 
 

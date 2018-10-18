@@ -17,44 +17,7 @@ import static org.mockito.Mockito.when;
 public class CharacterStateTest{
     GameStateManager gsm = new GameStateManager();
     MenuState menu;
-//    public MenuStateTest(GameStateManager gsm) {
-//        super(gsm);
-//    }
 
-    @Before
-    public void setUp() throws Exception {
-        //menu = new MenuState(gsm);
-    }
-
-    @Test
-    public void handleInput() {
-    }
-
-    @Test
-    public void update() {
-    }
-
-    @Test
-    public void render() {
-    }
-
-    @Test
-    public void dispose() {
-    }
-
-    @Test
-    public void testGameStateStack_OnMenu(){
-        //menu = new MenuState(gsm);
-
-        System.out.println(gsm.getCurrentState());
-    }
-
-    @Test
-    public void testGameStateStack_OnPlayState(){
-        // menu = new MenuState(gsm);
-
-        System.out.println(gsm.getCurrentState());
-    }
 
     @Test
     public void chooseCharacter1Test(){
@@ -65,8 +28,6 @@ public class CharacterStateTest{
         when(mockInput.getX()).thenReturn(50);
         when(mockInput.getY()).thenReturn(50);
         Texture texture = Mockito.mock(Texture.class);
-//        when(texture.getWidth()).thenReturn(300);
-//        when(texture.getHeight()).thenReturn(300);
 
         when(mockInput.justTouched()).thenReturn(true);
         State state = Mockito.mock(PlayState.class);

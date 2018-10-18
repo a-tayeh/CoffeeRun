@@ -30,32 +30,6 @@ public class MenuStateTest{
     private MenuState menuState = Mockito.mock(MenuState.class);
 
 
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @Test
-    public void handleInput() {
-        //write a few lines of code, look at code/user story
-        //study for it by going through all of the slides
-        //metric meaning some value you can get at
-        //first part of solid could be on exam
-        //
-    }
-
-    @Test
-    public void update() {
-    }
-
-    @Test
-    public void render() {
-    }
-
-    @Test
-    public void dispose() {
-    }
-
 
 
 
@@ -70,24 +44,16 @@ public class MenuStateTest{
         when(texture.getWidth()).thenReturn(300);
         when(texture.getHeight()).thenReturn(300);
 
-        //get rid of draw
-        //sb.draw(texture,texture.getWidth() / 2 - (texture.getWidth() / 2), texture.getHeight() / 2 - (texture.getHeight() / 2));
-
-        //Vector3 vector3 = Mockito.mock(Vector3.class);
-
         State state = Mockito.mock(PlayState.class);
 
         Gdx.graphics = Mockito.mock(Graphics.class);
         when(Gdx.graphics.getWidth()).thenReturn(50);
         when(Gdx.graphics.getWidth()).thenReturn(50);
         when(mockInput.justTouched()).thenReturn(true);
-        //when(mockInput.getX()).thenReturn(300);
         GameStateManager gsm = new GameStateManager();
         gsm.push(state);
         MenuState menuState = new MenuState(gsm, mockInput);
-        //menuState.setClickposition(50,50,0);
         menuState.doHandleInput(texture,1, state, false);
-        //when(state.toString()).thenReturn("playState");
 
 
         assertEquals(gsm.getCurrentState(),"[" + state.toString() + "]");
@@ -111,11 +77,9 @@ public class MenuStateTest{
         when(Gdx.graphics.getWidth()).thenReturn(50);
         when(Gdx.graphics.getWidth()).thenReturn(50);
         when(mockInput.justTouched()).thenReturn(true);
-        //when(mockInput.getX()).thenReturn(300);
         GameStateManager gsm = new GameStateManager();
         gsm.push(state);
         MenuState menuState = new MenuState(gsm, mockInput);
-        //menuState.setClickposition(50,50,0);
         menuState.doHandleInput(texture,2, state, false);
         when(state.toString()).thenReturn("characterState");
         assertEquals(gsm.getCurrentState(),menuState.getCurrentState());
