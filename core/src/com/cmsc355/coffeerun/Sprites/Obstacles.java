@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector3;
 
 import java.util.Random;
 
+import static com.badlogic.gdx.Gdx.graphics;
+
 public class Obstacles extends Sprite {
     private Texture btmObstacle;
     private Vector2 btmPos;
@@ -26,6 +28,7 @@ public class Obstacles extends Sprite {
         btmObstacle = new Texture("obstacle.jpg");
         rand = new Random();
         btmPos = new Vector2(x, rand.nextInt(FLUCTUATION));
+
     }
 
     public Texture getBtmObstacle() {
@@ -35,22 +38,17 @@ public class Obstacles extends Sprite {
     public Vector2 getBtmPos() {
         return btmPos;
     }
-//    public void update(float dt)
-//    {
-//        if(position.y>70) {
-//            velocity.add(0, GRAVITY, 0);
-//        }
-//        else if(position.y != 50) {
-//            velocity.y = 0;
-//            position.y =50;
-//        }
-//
-//        velocity.scl(dt);
-//
-//        position.add(MOVEMENT*dt,velocity.y,0);
-//        velocity.scl(1/dt);
-//    }
+
+    public void update(float dt)
+    {
+        velocity.scl(dt);
+
+        position.add(velocity.x,0,0);
+        velocity.scl(1/dt);    }
     public void reposition(float x){
         btmPos.set(x, rand.nextInt(FLUCTUATION));
+
     }
+
+
 }

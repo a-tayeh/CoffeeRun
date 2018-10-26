@@ -18,7 +18,7 @@ import static com.badlogic.gdx.Gdx.graphics;
 public class PlayState extends State {
 
     //CoffeeRun game;
-    private static final int OBSTACLE_SPACE = 500;
+    private static final int OBSTACLE_SPACE = 700;
     private static final int OBSTACLE_COUNT = 4;
     private Array<Obstacles> obstacles;
     private Student student;
@@ -41,6 +41,7 @@ public class PlayState extends State {
 //        obstacle = new Obstacles(500);
         cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
         obstacles = new Array<Obstacles>();
+
         for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
         }
@@ -64,7 +65,7 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gsm, Texture selectedchar){
         super(gsm);
         student = new Student(70,50, selectedchar);
-        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
+//        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
         obstacles = new Array<Obstacles>();
         for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
@@ -75,7 +76,7 @@ public class PlayState extends State {
         // this allows us to use an image to represent our healthbar
         healthBar = new Texture("plain-white-background.jpg");
 
-        cam.setToOrtho(false, graphics.getWidth(),graphics.getHeight());
+//        cam.setToOrtho(false, graphics.getWidth(),graphics.getHeight());
 
         // setWrap wraps our background and backgroundSprite actually sets it as our moving background
         ingameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
@@ -160,7 +161,8 @@ public class PlayState extends State {
         sb.draw(backgroundSprite,0,0);
 //        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
-            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x, obstacle.getBtmPos().y);
+            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=30, obstacle.getBtmPos().y);
+            cam.update();
         }
         //        if(timeCount<1){
 //            sb.setColor(Color.GREEN);

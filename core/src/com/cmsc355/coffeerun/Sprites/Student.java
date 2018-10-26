@@ -57,7 +57,7 @@ public class Student extends Sprite {
 
         velocity.scl(dt);
 
-        position.add(MOVEMENT*dt,velocity.y,0);
+        position.add(0,velocity.y,0);
         velocity.scl(1/dt);
     }
 
@@ -75,7 +75,9 @@ public class Student extends Sprite {
     }
 
     public void jump(){
-        velocity.y = 3000;
+        if(getPosition().y<=2000) {
+            velocity.y = 1000;
+        }
     }
 
     @Override
