@@ -3,6 +3,7 @@ package com.cmsc355.coffeerun.States;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 
@@ -10,7 +11,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
+
+import static org.mockito.Mockito.when;
+
 public class GameTest {
+    // This is our "test" application
     private static Application application;
 
     // Before running any tests, initialize the application with the headless backend
@@ -26,10 +31,14 @@ public class GameTest {
             @Override public void dispose() {}
         });
 
-        // Use Mockito to mock the OpenGL methods since we are running headlessly
+
+        // Use Mockito to mock the OpenGL methods since we are running headless-ly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
 
+//        Gdx.graphics = Mockito.mock(Graphics.class);
+////        when(Gdx.graphics.getWidth()).thenReturn(1000);
+////        when(Gdx.graphics.getHeight()).thenReturn(1000);
     }
 
     // After we are done, clean up the application
