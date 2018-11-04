@@ -192,7 +192,7 @@ public class PlayState extends State {
         shapeRenderer.setColor(67 ,   34 , 167, 0.5f);
         shapeRenderer.rect(student.getPlayerBounds().x,student.getPlayerBounds().y,200,200);
         for(Obstacles obstacles: obstacles){
-            shapeRenderer.rect(obstacles.getBounds().x-=20,obstacles.getBounds().y,200,200);
+            shapeRenderer.rect(obstacles.getBounds().x-=10,obstacles.getBounds().y,200,200);
         }
         shapeRenderer.end();
 

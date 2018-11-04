@@ -41,7 +41,7 @@ public class Student extends Sprite {
         flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
         sound = true;
 
-        playerBounds = new Rectangle(x,y, 200,200);
+        playerBounds = new Rectangle(position.x,position.y, 200,200);
 
 
 
@@ -84,9 +84,9 @@ public class Student extends Sprite {
         }
 
 
-        if(position.y>Gdx.graphics.getHeight()*4.15){
+        if(position.y>Gdx.graphics.getHeight()-student.getHeight()){
             //velocity.y = 0;
-            position.y = (float) (Gdx.graphics.getHeight()*4.15);
+            position.y =  (Gdx.graphics.getHeight()-student.getHeight());
         }
 
         velocity.scl(dt);
