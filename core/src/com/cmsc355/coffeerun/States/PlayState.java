@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 //import com.cmsc355.coffeerun.CoffeeRun;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
@@ -27,6 +28,9 @@ public class PlayState extends State {
     private int timeCount = 0;
     private Texture healthBar;
     private Input input;
+    private ShapeRenderer shapeRenderer;
+    private int count = 0;
+    private boolean invisible = false;
 
 
     private Texture ingameBackground;  // our actual ingame background
@@ -37,7 +41,8 @@ public class PlayState extends State {
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
-        student = new Student(graphics.getWidth()/5,graphics.getHeight()/5); //recongigure this for every screen (screemheight/8)
+        shapeRenderer = new ShapeRenderer();
+        student = new Student(graphics.getWidth()/10,graphics.getHeight()/10); //recongigure this for every screen (screemheight/8)
 //        obstacle = new Obstacles(500);
         cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
         obstacles = new Array<Obstacles>();
@@ -61,10 +66,12 @@ public class PlayState extends State {
 
 
 
+
+
     }
     protected PlayState(GameStateManager gsm, Texture selectedchar){
         super(gsm);
-        student = new Student(70,50, selectedchar);
+        student = new Student(200,0, selectedchar);
 //        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
         obstacles = new Array<Obstacles>();
         for(int i = 1;i<OBSTACLE_COUNT;i++){
@@ -113,34 +120,32 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         student.update(dt);
-        //make sure this constanct doesnt mess with size
-        //of different screents
-       //make hump
-        //cam.position.set(student.getX(), cam.viewportHeight / 2, 0);
+
 
         decrementHealth(Gdx.graphics);
 
-//        if ((CoffeeRun.V_WIDTH-100)*health <=0)
-//            System.out.println(CoffeeRun.V_WIDTH*health);
         timeCount += dt;
 
         for(Obstacles obstacle : obstacles){
             if(cam.position.x - (cam.viewportWidth/2)> obstacle.getBtmPos().x + obstacle.getBtmObstacle().getWidth()){
                 obstacle.reposition(obstacle.getBtmPos().x +  ((52+OBSTACLE_SPACE) *  OBSTACLE_COUNT));
+//
             }
+
+
         }
         cam.update();
+
 
     }
 
     public void decrementHealth(Graphics graphics){
         if(health*(graphics.getWidth() -100)>0)
-            this.health-=.004;
+            this.health-=.0004f;
     }
 
     @Override
     public void render(SpriteBatch sb) {
-
 
         sb.setProjectionMatrix(cam.combined);
         /* the following 3 lines of code below controls the rate at which the background moves and if it reaches
@@ -159,23 +164,19 @@ public class PlayState extends State {
         backgroundSprite.setU(scrollTime);
         backgroundSprite.setU2(scrollTime+10);
         sb.draw(backgroundSprite,0,0);
-//        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
-            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=30, obstacle.getBtmPos().y);
+
+                sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x -= 20, obstacle.getBtmPos().y);
+
+            if(obstacle.collides(student.getPlayerBounds())){
+                gsm.set(new MenuState(gsm));
+//                sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x, obstacle.getBtmPos().y-=1000);
+
+
+            }
             cam.update();
+
         }
-        //        if(timeCount<1){
-//            sb.setColor(Color.GREEN);
-//        }
-//        else if(timeCount<3){
-//            sb.setColor(Color.ORANGE);
-//        }
-//
-//        else if(timeCount < 5)
-//            sb.setColor(Color.RED);
-//
-//
-//        if((CoffeeRun.V_WIDTH-100)*health >0)
 
 
 
@@ -183,8 +184,17 @@ public class PlayState extends State {
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
 
         //Gdx.getGraphic. ->can get height and width of any emulator that we use
-        sb.draw(student.getStudent(), student.getPosition().x/5, student.getPosition().y/5, (graphics.getWidth()/10),(graphics.getWidth()/10));
+        sb.draw(student.getStudent(), student.getPosition().x, student.getPosition().y, (graphics.getWidth()/10),(graphics.getWidth()/10));
         sb.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(67 ,   34 , 167, 0.5f);
+        shapeRenderer.rect(student.getPlayerBounds().x,student.getPlayerBounds().y,200,200);
+        for(Obstacles obstacles: obstacles){
+            shapeRenderer.rect(obstacles.getBounds().x-=20,obstacles.getBounds().y,200,200);
+        }
+        shapeRenderer.end();
+
 
     }
 
