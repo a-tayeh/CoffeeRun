@@ -161,21 +161,10 @@ public class PlayState extends State {
         sb.draw(backgroundSprite,0,0);
 //        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
-            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=30, obstacle.getBtmPos().y);
+            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=10, obstacle.getBtmPos().y);
             cam.update();
         }
-        //        if(timeCount<1){
-//            sb.setColor(Color.GREEN);
-//        }
-//        else if(timeCount<3){
-//            sb.setColor(Color.ORANGE);
-//        }
-//
-//        else if(timeCount < 5)
-//            sb.setColor(Color.RED);
-//
-//
-//        if((CoffeeRun.V_WIDTH-100)*health >0)
+
 
 
 
