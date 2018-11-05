@@ -3,8 +3,6 @@ package com.cmsc355.coffeerun;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,35 +16,19 @@ public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdap
 
 	//DisplayMetrics metrics = new DisplayMetrics();
 	private GameStateManager gsm;
-	public  static Music music;
-	//public static boolean musicOn;
 	public SpriteBatch batch;
 
 	public static final String TITLE = "Coffee Run";
 
-	public CoffeeRun(){
-		this.music = music;
-	}
-
-	public CoffeeRun(Music music){
-		this.music = music;
-	}
 
 
 	@Override
 	public void create () {
-		//musicOn = true;
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		Gdx.gl.glClearColor(0,0,0,1);
-		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-		music.setLooping(true);
-		music.setVolume(.8f);
-		//if(musicOn) {
-		music.play();
-		//}
+        Gdx.gl.glClearColor(0,0,0,1);
 		//setScreen(new PlayScreen(this));
-		gsm.push(new MenuState(gsm));
+        gsm.push(new MenuState(gsm));
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
 		V_WIDTH = Gdx.graphics.getWidth();
@@ -56,24 +38,15 @@ public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdap
 
 	@Override
 	public void render () {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		gsm.update(Gdx.graphics.getDeltaTime());
-		gsm.render(batch);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        gsm.update(Gdx.graphics.getDeltaTime());
+        gsm.render(batch);
 		super.render();
 	}
-
 
 	@Override
 	public void dispose () {
 		batch.dispose();
-		music.dispose();
 
 	}
-	public Music getMusic(){
-		return music;
-	}
-	//public void setMusic(boolean music){this.musicOn = music;}
-
-
-
 }

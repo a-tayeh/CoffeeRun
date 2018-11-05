@@ -13,10 +13,8 @@ import javax.xml.soap.Text;
 public class MenuState extends State {
     private Texture background;
     private Texture playButton;
-    private Texture settings;
     private Texture character_selector;
     private Vector3 clickposition, worldposition;
-
     private Input input;
 
     public MenuState(GameStateManager gsm) {
@@ -26,7 +24,6 @@ public class MenuState extends State {
         playButton = new Texture("playbuttonsmall.png");
         System.out.println(playButton.toString());
         character_selector = new Texture("character.png");
-        settings = new Texture("settings.jpg");
         clickposition = new Vector3(); // stores screen coordinates
         worldposition = new Vector3(); // stores world coordinates
         input = Gdx.input;
@@ -77,14 +74,11 @@ public class MenuState extends State {
 //        }
         doHandleInput(playButton,1, new PlayState(gsm), true);
         doHandleInput(character_selector,2, new CharacterState(gsm), true);
-        doHandleInput(settings,3, new MusicState(gsm),true);
 
     }
 
     public void doHandleInput(Texture texture, int choice, State newState, boolean doDispose) {
         if (input.justTouched()) {
-            System.out.println("CLICK POSITION OF X: " + clickposition.x);
-            System.out.println("CLICK POSITION OF Y:" + clickposition.y);
             // Gets clicked/ touched position
             if (choice == 1) {
                 clickposition.set(input.getX(), input.getY(), 0); // screen coordinates.
@@ -93,34 +87,20 @@ public class MenuState extends State {
                     if (clickposition.y > (Gdx.graphics.getHeight() / 2 - (texture.getHeight() / 2)) &&
                             (clickposition.y < (Gdx.graphics.getHeight() / 2 + (texture.getHeight() / 2)))) {
                         gsm.set(newState);
-                        System.out.println("THIS IS PLAY BUTTON");
                         if (doDispose) dispose();
                     }
                 }
 
             }
             if(choice==2){
-                clickposition.set(input.getX(), input.getY(),0);
                  if ((clickposition.x > (Gdx.graphics.getWidth() - (texture.getWidth() / 2)) &&
                         (clickposition.x < (Gdx.graphics.getWidth())))) {
                     if (clickposition.y > 0 && clickposition.y < texture.getHeight()) {
                         gsm.set(newState);
-
                         if (doDispose) dispose();
                     }
                 }
 
-            }
-
-            if(choice ==3){
-                clickposition.set(input.getX(), input.getY(),0);
-                if(clickposition.x > 0 && clickposition.x < texture.getWidth()/6){
-                    if(clickposition.y >  Gdx.graphics.getHeight() - texture.getHeight()/6 && clickposition.y < Gdx.graphics.getHeight() ){
-                        gsm.set(newState);
-                        System.out.print("CONGRATS SMARTY PANTS");
-                        if(doDispose) dispose();
-                    }
-                }
             }
         }
     }
@@ -139,7 +119,6 @@ public class MenuState extends State {
         sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         sb.draw(playButton, Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2), Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2));
         sb.draw(character_selector, Gdx.graphics.getWidth() - (character_selector.getWidth()), Gdx.graphics.getHeight() - character_selector.getHeight());
-        sb.draw(settings, 0,0, Gdx.graphics.getWidth()/6, Gdx.graphics.getHeight()/6);
         sb.end();
     }
 
@@ -148,7 +127,6 @@ public class MenuState extends State {
         background.dispose();
         playButton.dispose();
         character_selector.dispose();
-        settings.dispose();
     }
 
     /////////////////////////everything below is strictly testing purposes//////////////////////////

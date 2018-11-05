@@ -1,30 +1,20 @@
 package com.cmsc355.coffeerun.Sprites;
 
 import com.badlogic.gdx.Gdx;
-
-import com.badlogic.gdx.audio.Sound;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 
 import com.badlogic.gdx.math.Rectangle;
 
-import java.awt.TextArea;
-
 public class Student extends Sprite {
     private static final int GRAVITY = -100;
     private static final int MOVEMENT = 100;
-    public static Sound flap;
-    private boolean sound;
-
-
     private Rectangle playerBounds;
-
-
 
     private Vector3 position;
     private Vector3 velocity;
+  //  public boolean colliding;
 
 
 
@@ -32,17 +22,12 @@ public class Student extends Sprite {
     private Texture student;
 
     public Student(int x, int y){
-
         this.yOriginal = y;
         position = new Vector3(0,0,0);
         velocity = new Vector3(x,y,0);
         student = new Texture("peach.png");
-
-        flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
-        sound = true;
-
-        playerBounds = new Rectangle(position.x,position.y, 200,200);
-
+        playerBounds = new Rectangle(x, y, 200, 200);
+      //  colliding = false;
 
 
     }
@@ -50,18 +35,13 @@ public class Student extends Sprite {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
         student = new Texture(sp.getTextureData());
-        sound = true;
     }
 
 
 //    //testing constructor
     public Student(int x, int y, int z) {
         position = new Vector3(x, y, 0);
-
-        // velocity = new Vector3(0, 0, 0);
-        // sound = true;
         velocity = new Vector3(0, y, 0);
-
     }
 //    public Student(int x, int y, Texture sp){
 //        position = new Vector3(x,y,0);
@@ -75,30 +55,24 @@ public class Student extends Sprite {
                 velocity.add(0, GRAVITY, 0);
         }
         else if(position.y != yOriginal) {
-            //velocity.y = 0;
+            velocity.y = 0;
             position.y =yOriginal;
         }
-        if(position.y>Gdx.graphics.getHeight()){
-            //velocity.y = 0;
-            position.y = (float) (Gdx.graphics.getHeight());
-        }
 
 
-        if(position.y>Gdx.graphics.getHeight()-student.getHeight()){
-            //velocity.y = 0;
-            position.y =  (Gdx.graphics.getHeight()-student.getHeight());
-        }
 
         velocity.scl(dt);
 
         position.add(0,velocity.y,0);
         velocity.scl(1/dt);
-        playerBounds.setPosition(position.x,position.y);
+
+        playerBounds.setPosition(position.x, position.y);
 
     }
 
     public Rectangle getPlayerBounds(){
         return playerBounds;
+
     }
 
     public Vector3 getPosition() {
@@ -115,26 +89,11 @@ public class Student extends Sprite {
     }
 
     public void jump(){
-//        if(position.y > Gdx.graphics.getWidth()) {
-//            position.y = Gdx.graphics.getHeight();
-//            //velocity.y = 3000;
-//        } else {
+        if(position.y < 5000){
+            velocity.y = 2000;
+        }
 
-            velocity.y = 3000;
-            if(sound)
-            flap.play();
-
-    }
-
-    public void dispose(){
-        student.dispose();
-        flap.dispose();
-
-
-
-
-    }
-
+}
     @Override
     public float getWidth() {
         return super.getWidth();
@@ -144,8 +103,6 @@ public class Student extends Sprite {
     public float getHeight() {
         return super.getHeight();
     }
-    public void setSound(boolean soundBool){this.sound = soundBool;}
-
 
 
 }

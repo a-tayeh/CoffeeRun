@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.cmsc355.coffeerun.Sprites.Student;
+import com.badlogic.gdx.math.Rectangle;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import org.mockito.Mockito;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
-public class PlayStateTest extends GameTest{
+public class PlayStateTest{
     GameStateManager gsm = new GameStateManager();
     MenuState menu;
 
@@ -25,31 +26,31 @@ public class PlayStateTest extends GameTest{
     @Test
     public void testOne_ClickOnPlayState_StudentJump() {
         Input mockInput = Mockito.mock(Input.class);
-//        when(mockInput.getX()).thenReturn(50);
-//        when(mockInput.getY()).thenReturn(50);
+        when(mockInput.getX()).thenReturn(50);
+        when(mockInput.getY()).thenReturn(50);
         //SpriteBatch sb = Mockito.mock(SpriteBatch.class);
-//        Texture texture = Mockito.mock(Texture.class);
-//        when(texture.getWidth()).thenReturn(300);
-//        when(texture.getHeight()).thenReturn(300);
+        Texture texture = Mockito.mock(Texture.class);
+        when(texture.getWidth()).thenReturn(300);
+        when(texture.getHeight()).thenReturn(300);
 
-//        State state = Mockito.mock(PlayState.class);
+        State state = Mockito.mock(PlayState.class);
 
-//        Student student = Mockito.mock(Student.class);
+        Student student = Mockito.mock(Student.class);
 
-//        when(student.getVelocity()).thenReturn(new Vector3(0,0,0));
+        when(student.getVelocity()).thenReturn(new Vector3(0,0,0));
         Student stud = new Student(0,0,0);
 
 
-//        when(mockInput.justTouched()).thenReturn(true);
+        when(mockInput.justTouched()).thenReturn(true);
 
         GameStateManager gsm = new GameStateManager();
-//        gsm.push(state);
-        //Student student5 = Mockito.mock(Student.class);
-        PlayState playState = new PlayState(gsm, mockInput, stud);
+        gsm.push(state);
+        Student student5 = Mockito.mock(Student.class);
+        PlayState playState = new PlayState(gsm, mockInput, student5);
 
         playState.doHandleInput(mockInput, stud);
 
-        assertEquals(""+(int)(Gdx.graphics.getHeight()/2),"" + (int)stud.getVelocity().y);
+        assertEquals(""+3000,"" + (int)stud.getVelocity().y);
     }
     @Test
     public void test3_GetHealthBar_Decrease(){
