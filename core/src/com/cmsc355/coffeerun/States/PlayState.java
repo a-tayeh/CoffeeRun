@@ -11,8 +11,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 //import com.cmsc355.coffeerun.CoffeeRun;
+import com.cmsc355.coffeerun.Sprites.Cups;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
 import com.cmsc355.coffeerun.Sprites.Student;
+
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
@@ -28,9 +31,12 @@ public class PlayState extends State {
     private int timeCount = 0;
     private Texture healthBar;
     private Input input;
+
+    private static final int COFFEE_SPACE = 500;
+    private static final int COFFEE_COUNT = 4;
+    private Array<Cups> cups;
+    private Cups cup;
     private ShapeRenderer shapeRenderer;
-    private int count = 0;
-    private boolean invisible = false;
 
 
     private Texture ingameBackground;  // our actual ingame background
@@ -50,6 +56,10 @@ public class PlayState extends State {
         for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
         }
+        cups = new Array<Cups>();
+        for(int i = 1;i<COFFEE_COUNT;i++){
+            cups.add(new Cups(i * COFFEE_SPACE + 30));
+        }
 
         ingameBackground = new Texture("mario.jpeg");
 
@@ -66,8 +76,6 @@ public class PlayState extends State {
 
 
 
-
-
     }
     protected PlayState(GameStateManager gsm, Texture selectedchar){
         super(gsm);
@@ -76,6 +84,10 @@ public class PlayState extends State {
         obstacles = new Array<Obstacles>();
         for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
+        }
+        cups = new Array<Cups>();
+        for(int i = 1;i<COFFEE_COUNT;i++){
+            cups.add(new Cups(i * COFFEE_SPACE + 30));
         }
 
         ingameBackground = new Texture("mario.jpeg");
@@ -120,24 +132,34 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         student.update(dt);
-
+        //make sure this constanct doesnt mess with size
+        //of different screents
+       //make hump
+        //cam.position.set(student.getX(), cam.viewportHeight / 2, 0);
 
         decrementHealth(Gdx.graphics);
 
+//        if ((CoffeeRun.V_WIDTH-100)*health <=0)
+//            System.out.println(CoffeeRun.V_WIDTH*health);
         timeCount += dt;
 
         for(Obstacles obstacle : obstacles){
             if(cam.position.x - (cam.viewportWidth/2)> obstacle.getBtmPos().x + obstacle.getBtmObstacle().getWidth()){
                 obstacle.reposition(obstacle.getBtmPos().x +  ((52+OBSTACLE_SPACE) *  OBSTACLE_COUNT));
-//
             }
-
-
         }
-        cam.update();
 
+        for(Cups cup : cups) {
+                if (cam.position.x - (cam.viewportWidth / 2) > cup.getBtmPos().x + cup.getCoffeeCup().getWidth()) {
+                    cup.reposition(cup.getBtmPos().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
+                }
 
     }
+        cam.update();
+
+    }
+
+
 
     public void decrementHealth(Graphics graphics){
         if(health*(graphics.getWidth() -100)>0)
@@ -146,6 +168,7 @@ public class PlayState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+
 
         sb.setProjectionMatrix(cam.combined);
         /* the following 3 lines of code below controls the rate at which the background moves and if it reaches
@@ -164,16 +187,55 @@ public class PlayState extends State {
         backgroundSprite.setU(scrollTime);
         backgroundSprite.setU2(scrollTime+10);
         sb.draw(backgroundSprite,0,0);
+        Array<Cups> cupsToRemove = new Array<Cups>();
+
+//        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
-
-                sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x -= 20, obstacle.getBtmPos().y);
-
+            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=20, obstacle.getBtmPos().y);
             if(obstacle.collides(student.getPlayerBounds())){
                 gsm.set(new MenuState(gsm));
             }
-            cam.update();
 
         }
+        cam.update();
+        //Array<Cups> cupsToRemove = new Array<Cups>();
+
+        for(Cups cup : cups) {
+            sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x -= 20, cup.getBtmPos().y);
+            if(cup.collides(student.getPlayerBounds())) {
+                sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x, cup.getBtmPos().y-=1000);
+            }
+
+                cam.update();
+        }
+
+
+//        for(Cups cup : cups) {
+//
+//            if(cup.collides(student.getPlayerBounds())) {
+//;
+//
+//               // cupsToRemove.add(cup);
+//               // cups.removeAll(cupsToRemove, true);
+//                health += health*.1;
+//                decrementHealth(Gdx.graphics);
+//        }
+//           // cups.add(cup);
+//
+//        }
+
+        //        if(timeCount<1){
+//            sb.setColor(Color.GREEN);
+//        }
+//        else if(timeCount<3){
+//            sb.setColor(Color.ORANGE);
+//        }
+//
+//        else if(timeCount < 5)
+//            sb.setColor(Color.RED);
+//
+//
+//        if((CoffeeRun.V_WIDTH-100)*health >0)
 
 
 
@@ -182,6 +244,18 @@ public class PlayState extends State {
 
         //Gdx.getGraphic. ->can get height and width of any emulator that we use
         sb.draw(student.getStudent(), student.getPosition().x, student.getPosition().y, (graphics.getWidth()/10),(graphics.getWidth()/10));
+
+      //  Array<Cups> cupsToRemove = new Array<Cups>();
+
+/*        for(Cups cup : cups){
+            if(student.getSpaceCheck().collision(cup.getSpaceCheck())){
+                cupsToRemove.add(cup);
+                cup.dispose();
+            }
+            cups.removeAll(cupsToRemove,false);
+
+        } */
+
         sb.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -190,6 +264,9 @@ public class PlayState extends State {
         for(Obstacles obstacles: obstacles){
             shapeRenderer.rect(obstacles.getBounds().x-=20,obstacles.getBounds().y,200,200);
         }
+        for(Cups cup: cups){
+            shapeRenderer.rect(cup.getBounds().x-=20,cup.getBounds().y,100,100);
+        }
         shapeRenderer.end();
 
 
@@ -197,7 +274,7 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
+        cup.dispose();
     }
 
 

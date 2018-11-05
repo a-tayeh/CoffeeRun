@@ -1,49 +1,40 @@
 package com.cmsc355.coffeerun.Sprites;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.cmsc355.coffeerun.States.PlayState;
+
 
 import java.util.Random;
 
-import static com.badlogic.gdx.Gdx.graphics;
+public class Cups extends Sprite {
 
-public class Obstacles extends Sprite {
-    private Texture btmObstacle;
+    private Texture coffeeCup;
     private Vector2 btmPos;
-    //include something like a tube gap to prevent images touching each other
     private Random rand;
     private Vector3 position;
     private Vector3 velocity;
     private static final int GRAVITY = -100;
     private static final int MOVEMENT = -100;
-
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    private Rectangle bounds;
-
-
-
-
     private static final int FLUCTUATION = 500;
+    private Rectangle bounds;
+    public boolean remove;
 
-    public Obstacles(float x){
-        btmObstacle = new Texture("obstacle.jpg");
+
+    public Cups(float x){
+        coffeeCup = new Texture("Eggplant_Emoji_grande.jpg");
         rand = new Random();
         btmPos = new Vector2(x, rand.nextInt(FLUCTUATION));
-        bounds = new Rectangle(btmPos.x,btmPos.y,200,200);
-
+        bounds = new Rectangle(btmPos.x, btmPos.y, 100, 100);
+        remove = false;
     }
 
-    public boolean collides(Rectangle player){
-        return player.overlaps(bounds);
-    }
-    public Texture getBtmObstacle() {
-        return btmObstacle;
+    public Texture getCoffeeCup() {
+        return coffeeCup;
     }
 
     public Vector2 getBtmPos() {
@@ -55,11 +46,30 @@ public class Obstacles extends Sprite {
         velocity.scl(dt);
 
         position.add(velocity.x,0,0);
-        velocity.scl(1/dt);    }
+        velocity.scl(1/dt);
+    }
+
     public void reposition(float x){
         btmPos.set(x, rand.nextInt(FLUCTUATION));
+        bounds.setPosition(btmPos.x, btmPos.y);
 
     }
+
+    public Rectangle getBounds(){
+        return bounds;
+    }
+
+    public boolean collides(Rectangle student){
+        return student.overlaps(bounds);
+   }
+    public Vector3 getPosition() { return position;}
+
+
+  public void dispose(){
+    //    coffeeCup.dispose();
+
+    }
+
 
 
 }

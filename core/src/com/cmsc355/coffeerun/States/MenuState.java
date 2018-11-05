@@ -16,6 +16,8 @@ public class MenuState extends State {
     private Texture character_selector;
     private Vector3 clickposition, worldposition;
     private Input input;
+    private Texture settings;
+
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
@@ -23,6 +25,8 @@ public class MenuState extends State {
         background = new Texture("mario.jpeg");
         playButton = new Texture("playbuttonsmall.png");
         System.out.println(playButton.toString());
+        settings = new Texture("settings.jpg");
+
         character_selector = new Texture("character.png");
         clickposition = new Vector3(); // stores screen coordinates
         worldposition = new Vector3(); // stores world coordinates
@@ -72,6 +76,7 @@ public class MenuState extends State {
 //        } else {
 //
 //        }
+        doHandleInput(settings,3, new MusicState(gsm),true);
         doHandleInput(playButton,1, new PlayState(gsm), true);
         doHandleInput(character_selector,2, new CharacterState(gsm), true);
 
@@ -102,6 +107,16 @@ public class MenuState extends State {
                 }
 
             }
+            if(choice ==3){
+                clickposition.set(input.getX(), input.getY(),0);
+                if(clickposition.x > 0 && clickposition.x < texture.getWidth()/6){
+                    if(clickposition.y >  Gdx.graphics.getHeight() - texture.getHeight()/6 && clickposition.y < Gdx.graphics.getHeight() ){
+                        gsm.set(newState);
+                        System.out.print("CONGRATS SMARTY PANTS");
+                        if(doDispose) dispose();
+                    }
+                }
+            }
         }
     }
 
@@ -119,6 +134,8 @@ public class MenuState extends State {
         sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         sb.draw(playButton, Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2), Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2));
         sb.draw(character_selector, Gdx.graphics.getWidth() - (character_selector.getWidth()), Gdx.graphics.getHeight() - character_selector.getHeight());
+        sb.draw(settings, 0,0, Gdx.graphics.getWidth()/6, Gdx.graphics.getHeight()/6);
+
         sb.end();
     }
 
