@@ -1,6 +1,7 @@
 package com.cmsc355.coffeerun.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
@@ -14,6 +15,8 @@ public class Student extends Sprite {
 
     private Vector3 position;
     private Vector3 velocity;
+    public static Sound flap;
+    private boolean sound;
   //  public boolean colliding;
 
 
@@ -27,6 +30,8 @@ public class Student extends Sprite {
         velocity = new Vector3(x,y,0);
         student = new Texture("peach.png");
         playerBounds = new Rectangle(x, y, 200, 200);
+        flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
+        sound = true;
       //  colliding = false;
 
 
@@ -89,11 +94,17 @@ public class Student extends Sprite {
     }
 
     public void jump(){
-        if(position.y < 5000){
-            velocity.y = 2000;
-        }
+        velocity.y = 3000;
+        if(sound)
+            flap.play();
 
 }
+    public void dispose(){
+        student.dispose();
+        flap.dispose();
+    }
+    public void setSound(boolean soundBool){this.sound = soundBool;}
+
     @Override
     public float getWidth() {
         return super.getWidth();

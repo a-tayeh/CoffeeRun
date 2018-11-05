@@ -192,6 +192,12 @@ public class PlayState extends State {
 //        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
             sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=20, obstacle.getBtmPos().y);
+            if(obstacle.collides(student.getPlayerBounds())){
+                gsm.set(new MenuState(gsm));
+//                sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x, obstacle.getBtmPos().y-=1000);
+
+
+            }
 
         }
         cam.update();
@@ -258,6 +264,9 @@ public class PlayState extends State {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(67 ,   34 , 167, 0.5f);
         shapeRenderer.rect(student.getPlayerBounds().x,student.getPlayerBounds().y,200,200);
+        for(Obstacles obstacles: obstacles){
+            shapeRenderer.rect(obstacles.getBounds().x-=20,obstacles.getBounds().y,200,200);
+        }
         for(Cups cup: cups){
             shapeRenderer.rect(cup.getBounds().x-=20,cup.getBounds().y,100,100);
         }
