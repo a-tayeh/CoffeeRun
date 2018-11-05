@@ -170,9 +170,6 @@ public class PlayState extends State {
 
             if(obstacle.collides(student.getPlayerBounds())){
                 gsm.set(new MenuState(gsm));
-//                sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x, obstacle.getBtmPos().y-=1000);
-
-
             }
             cam.update();
 
