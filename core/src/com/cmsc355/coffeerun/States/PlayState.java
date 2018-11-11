@@ -22,19 +22,19 @@ import static com.badlogic.gdx.Gdx.graphics;
 public class PlayState extends State {
 
     //CoffeeRun game;
-    private static final int OBSTACLE_SPACE = 700;
-    private static final int OBSTACLE_COUNT = 4;
-    private Array<Obstacles> obstacles;
+    private static int OBSTACLE_SPACE = 700;
+    private static int OBSTACLE_COUNT = 4;
+    private ArrayList<Obstacles> obstacles;
     private Student student;
     private Obstacles obstacle;
     private float health = 1; //0 = dead, 1 = full health
-    private int timeCount = 0;
+    private float timeCount = 0;
     private Texture healthBar;
     private Input input;
 
     private static final int COFFEE_SPACE = 500;
     private static final int COFFEE_COUNT = 4;
-    private Array<Cups> cups;
+    private ArrayList<Cups> cups;
     private Cups cup;
     private ShapeRenderer shapeRenderer;
 
@@ -51,12 +51,15 @@ public class PlayState extends State {
         student = new Student(graphics.getWidth()/10,graphics.getHeight()/10); //recongigure this for every screen (screemheight/8)
 //        obstacle = new Obstacles(500);
         cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
-        obstacles = new Array<Obstacles>();
+        obstacles = new ArrayList<Obstacles>();
 
-        for(int i = 1;i<OBSTACLE_COUNT;i++){
-            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
-        }
-        cups = new Array<Cups>();
+
+
+            for (int i = 1; i < OBSTACLE_COUNT; i++) {
+                obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
+            }
+
+        cups = new ArrayList<Cups>();
         for(int i = 1;i<COFFEE_COUNT;i++){
             cups.add(new Cups(i * COFFEE_SPACE + 30));
         }
@@ -81,11 +84,11 @@ public class PlayState extends State {
         super(gsm);
         student = new Student(200,0, selectedchar);
 //        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
-        obstacles = new Array<Obstacles>();
+        obstacles = new ArrayList<Obstacles>();
         for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
         }
-        cups = new Array<Cups>();
+        cups = new ArrayList<Cups>();
         for(int i = 1;i<COFFEE_COUNT;i++){
             cups.add(new Cups(i * COFFEE_SPACE + 30));
         }
@@ -137,11 +140,18 @@ public class PlayState extends State {
        //make hump
         //cam.position.set(student.getX(), cam.viewportHeight / 2, 0);
 
+
+
         decrementHealth(Gdx.graphics);
 
 //        if ((CoffeeRun.V_WIDTH-100)*health <=0)
 //            System.out.println(CoffeeRun.V_WIDTH*health);
         timeCount += dt;
+//        if (timeCount>5)
+//        {
+//            timeCount= 0;
+//            createObstacles();
+//        }
 
         for(Obstacles obstacle : obstacles){
             if(cam.position.x - (cam.viewportWidth/2)> obstacle.getBtmPos().x + obstacle.getBtmObstacle().getWidth()){
@@ -157,9 +167,13 @@ public class PlayState extends State {
     }
         cam.update();
 
+        }
+
+    public void createObstacles(){
+
+        obstacles.add(new Obstacles(OBSTACLE_SPACE+52));
+
     }
-
-
 
     public void decrementHealth(Graphics graphics){
         if(health*(graphics.getWidth() -100)>0)
@@ -187,77 +201,53 @@ public class PlayState extends State {
         backgroundSprite.setU(scrollTime);
         backgroundSprite.setU2(scrollTime+10);
         sb.draw(backgroundSprite,0,0);
-        Array<Cups> cupsToRemove = new Array<Cups>();
+        ArrayList<Cups> cupsToRemove = new ArrayList<Cups>();
 
 //        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
-            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=20, obstacle.getBtmPos().y);
+//            sb.draw(obstacle.getBtmObstacle(),graphics.getWidth(),graphics.getHeight(), obstacle.getBtmObstacle().getWidth(), obstacle.getBtmObstacle().getHeight());
+            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=10, obstacle.getBtmPos().y);
             if(obstacle.collides(student.getPlayerBounds())){
-                gsm.set(new MenuState(gsm));
-//                sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x, obstacle.getBtmPos().y-=1000);
 
+                if(health>.1){
+                    health-=.01f;
+                }
+                else{
+                    gsm.set(new MenuState(gsm));
 
+                }
             }
+            cam.update();
+
 
         }
-        cam.update();
         //Array<Cups> cupsToRemove = new Array<Cups>();
 
         for(Cups cup : cups) {
-            sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x -= 20, cup.getBtmPos().y);
+            int counter = 0;
+
+            if(!obstacles.get(counter).collides(cup.getBounds())) {
+                sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x -= 10, cup.getBtmPos().y);
+            }
             if(cup.collides(student.getPlayerBounds())) {
+                if(health<1) {
+                    health += .01f;
+                }
                 sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x, cup.getBtmPos().y-=1000);
             }
 
-                cam.update();
+            counter++;
+
+
         }
 
-
-//        for(Cups cup : cups) {
-//
-//            if(cup.collides(student.getPlayerBounds())) {
-//;
-//
-//               // cupsToRemove.add(cup);
-//               // cups.removeAll(cupsToRemove, true);
-//                health += health*.1;
-//                decrementHealth(Gdx.graphics);
-//        }
-//           // cups.add(cup);
-//
-//        }
-
-        //        if(timeCount<1){
-//            sb.setColor(Color.GREEN);
-//        }
-//        else if(timeCount<3){
-//            sb.setColor(Color.ORANGE);
-//        }
-//
-//        else if(timeCount < 5)
-//            sb.setColor(Color.RED);
-//
-//
-//        if((CoffeeRun.V_WIDTH-100)*health >0)
-
-
-
+        cam.update();
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
 
         //Gdx.getGraphic. ->can get height and width of any emulator that we use
         sb.draw(student.getStudent(), student.getPosition().x, student.getPosition().y, (graphics.getWidth()/10),(graphics.getWidth()/10));
 
-      //  Array<Cups> cupsToRemove = new Array<Cups>();
-
-/*        for(Cups cup : cups){
-            if(student.getSpaceCheck().collision(cup.getSpaceCheck())){
-                cupsToRemove.add(cup);
-                cup.dispose();
-            }
-            cups.removeAll(cupsToRemove,false);
-
-        } */
 
         sb.end();
 
@@ -265,12 +255,12 @@ public class PlayState extends State {
         shapeRenderer.setColor(67 ,   34 , 167, 0.5f);
         shapeRenderer.rect(student.getPlayerBounds().x,student.getPlayerBounds().y,200,200);
         for(Obstacles obstacles: obstacles){
-            shapeRenderer.rect(obstacles.getBounds().x-=20,obstacles.getBounds().y,200,200);
+            shapeRenderer.rect(obstacles.getBounds().x-=10,obstacles.getBounds().y,200,200);
         }
-        for(Cups cup: cups){
-            shapeRenderer.rect(cup.getBounds().x-=20,cup.getBounds().y,100,100);
-        }
-        shapeRenderer.end();
+        for(Cups cup: cups) {
+            shapeRenderer.rect(cup.getBounds().x -= 10, cup.getBounds().y, 75, 100);
+            }
+            shapeRenderer.end();
 
 
     }
@@ -283,6 +273,17 @@ public class PlayState extends State {
 
     public float getHealth(){
         return health;
+    }
+
+    public int getObstacleCount(){
+        return obstacles.size();
+    }
+
+    public int getCupsCount(){
+        return 12;
+    }
+    public Cups getCup(){
+        return new Cups(12);
     }
 
 

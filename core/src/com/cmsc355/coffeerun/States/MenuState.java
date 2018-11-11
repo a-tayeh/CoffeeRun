@@ -112,7 +112,6 @@ public class MenuState extends State {
                 if(clickposition.x > 0 && clickposition.x < texture.getWidth()/6){
                     if(clickposition.y >  Gdx.graphics.getHeight() - texture.getHeight()/6 && clickposition.y < Gdx.graphics.getHeight() ){
                         gsm.set(newState);
-                        System.out.print("CONGRATS SMARTY PANTS");
                         if(doDispose) dispose();
                     }
                 }
@@ -195,5 +194,6 @@ public class MenuState extends State {
     public Texture getPlayButton(){
         return playButton;
     }
+
 }
 

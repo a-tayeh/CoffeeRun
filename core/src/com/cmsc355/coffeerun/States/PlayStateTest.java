@@ -28,7 +28,6 @@ public class PlayStateTest{
         Input mockInput = Mockito.mock(Input.class);
         when(mockInput.getX()).thenReturn(50);
         when(mockInput.getY()).thenReturn(50);
-        //SpriteBatch sb = Mockito.mock(SpriteBatch.class);
         Texture texture = Mockito.mock(Texture.class);
         when(texture.getWidth()).thenReturn(300);
         when(texture.getHeight()).thenReturn(300);
@@ -40,8 +39,9 @@ public class PlayStateTest{
         when(student.getVelocity()).thenReturn(new Vector3(0,0,0));
         Student stud = new Student(0,0,0);
 
-
+        System.out.println(stud.getVelocity().y);
         when(mockInput.justTouched()).thenReturn(true);
+        System.out.println(stud.getVelocity().y);
 
         GameStateManager gsm = new GameStateManager();
         gsm.push(state);
@@ -49,21 +49,20 @@ public class PlayStateTest{
         PlayState playState = new PlayState(gsm, mockInput, student5);
 
         playState.doHandleInput(mockInput, stud);
+        System.out.println(stud.getVelocity().y);
 
         assertEquals(""+3000,"" + (int)stud.getVelocity().y);
     }
     @Test
     public void test3_GetHealthBar_Decrease(){
-        GameStateManager gameStateManager = new GameStateManager();
         Input input = Mockito.mock(Input.class);
         when(input.justTouched()).thenReturn(true);
         Student student = Mockito.mock(Student.class);
         Gdx.graphics = Mockito.mock(Graphics.class);
         when(Gdx.graphics.getWidth()).thenReturn(200);
         PlayState playState = new PlayState(gsm,input,student);
-        //when(playState.getHealth()).thenReturn(1f);
         playState.decrementHealth(Gdx.graphics);
-//        System.out.println(playState.getHealth());
+
         assertTrue(playState.getHealth() < 1);
 
 
@@ -71,7 +70,6 @@ public class PlayStateTest{
 
     @Test
     public void onPlayStateTest(){
-
         State state = Mockito.mock(PlayState.class);
         GameStateManager gsm = new GameStateManager();
         gsm.push(state);

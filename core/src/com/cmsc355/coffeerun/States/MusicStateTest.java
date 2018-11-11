@@ -20,17 +20,10 @@ public class MusicStateTest extends GameTest {
     MenuState menu;
     Music music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 
-    @Test
-    public void onMusicState(){
-        State state = Mockito.mock(MusicState.class);
-        GameStateManager gsm = new GameStateManager();
-        gsm.push(state);
-        assertEquals(gsm.getCurrentState(),"[" + state.toString() + "]");
 
-    }
 
     @Test
-    public void clickOnSettingsGear(){
+    public void clickOnSettingsGear_goToMusicMenu(){
         Input mockInput = Mockito.mock(Input.class);
         when(mockInput.getX()).thenReturn(50);
         when(mockInput.getY()).thenReturn(50);
@@ -55,7 +48,7 @@ public class MusicStateTest extends GameTest {
     }
 
     @Test
-    public void clickOnMusicIcon_OnTheLeft(){
+    public void clickOnMusicIcon_OnTheLeft_TurnOffMusic(){
         Input mockInput = Mockito.mock(Input.class);
         when(mockInput.getX()).thenReturn(10);
         when(mockInput.getY()).thenReturn(1);
@@ -72,12 +65,21 @@ public class MusicStateTest extends GameTest {
 
         CoffeeRun coffeeRun = new CoffeeRun(music);
         coffeeRun.music.setVolume(0.8f);
-        musicState.doHandleInput(texture,1, coffeeRun.music);
+        musicState.doHandleInput(texture,1, coffeeRun.music, musicState,false);
         double vol = coffeeRun.music.getVolume();
 
 
 
         assertEquals((int)vol,0);
+
+    }
+
+    @Test
+    public void clickOnTheBackButton_returnToMenuScreen(){
+        State state = Mockito.mock(MusicState.class);
+        GameStateManager gsm = new GameStateManager();
+        gsm.push(state);
+        assertEquals(gsm.getCurrentState(),"[" + state.toString() + "]");
 
     }
 }

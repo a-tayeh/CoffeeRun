@@ -26,7 +26,7 @@ public class Cups extends Sprite {
 
 
     public Cups(float x){
-        coffeeCup = new Texture("Eggplant_Emoji_grande.jpg");
+        coffeeCup = new Texture("coffee.jpg");
         rand = new Random();
         btmPos = new Vector2(x, rand.nextInt(FLUCTUATION));
         bounds = new Rectangle(btmPos.x, btmPos.y, 100, 100);

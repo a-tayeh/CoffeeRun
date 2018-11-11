@@ -2,6 +2,7 @@ package com.cmsc355.coffeerun.Sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -35,12 +36,14 @@ public class Obstacles extends Sprite {
         btmObstacle = new Texture("obstacle.jpg");
         rand = new Random();
         btmPos = new Vector2(x, rand.nextInt(FLUCTUATION));
-        bounds = new Rectangle(btmPos.x,btmPos.y,200,200);
+        bounds = new Rectangle(btmPos.x-=20,btmPos.y,200,200);
+
 
     }
 
     public boolean collides(Rectangle player){
-        return player.overlaps(bounds);
+
+        return player.overlaps(getBounds());
     }
     public Texture getBtmObstacle() {
         return btmObstacle;
@@ -58,8 +61,11 @@ public class Obstacles extends Sprite {
         velocity.scl(1/dt);    }
     public void reposition(float x){
         btmPos.set(x, rand.nextInt(FLUCTUATION));
+        bounds.setPosition(btmPos.x-=20,btmPos.y);
 
     }
 
 
+
 }
+
