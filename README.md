@@ -12,6 +12,7 @@ Closed HealthBar, Character, and start menu issues.
 
 #Iteration 2
 Closed Coffee,Sound Options and Obstacles issues.
+
 Tests for iteration 2 can be found under states package(MusicStateTest, CoffeeCupTest, ObstacleTest).
 
 
