@@ -16,5 +16,5 @@ Closed Coffee,Sound Options and Obstacles issues.
 Tests for iteration 2 can be found under states package(MusicStateTest, CoffeeCupTest, ObstacleTest).
 
 
-#Video Demo
+# Video Demo
 https://youtu.be/A2pYbF6qma0
