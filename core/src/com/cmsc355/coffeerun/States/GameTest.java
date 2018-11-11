@@ -3,12 +3,15 @@ package com.cmsc355.coffeerun.States;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
+
+import static org.mockito.Mockito.when;
 
 public class GameTest {
     private static Application application;
@@ -29,6 +32,7 @@ public class GameTest {
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
+        Input mockInput = Mockito.mock(Input.class);
 
     }
 

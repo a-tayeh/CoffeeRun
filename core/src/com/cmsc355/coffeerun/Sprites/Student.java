@@ -14,6 +14,11 @@ public class Student extends Sprite {
     private Rectangle playerBounds;
 
     private Vector3 position;
+
+    public void setVelocity(Vector3 velocity) {
+        this.velocity = velocity;
+    }
+
     private Vector3 velocity;
     public static Sound flap;
     private boolean sound;
@@ -34,6 +39,9 @@ public class Student extends Sprite {
         sound = true;
       //  colliding = false;
 
+
+    }
+    public Student(){
 
     }
     public Student(int x, int y, Texture sp){
@@ -94,11 +102,18 @@ public class Student extends Sprite {
     }
 
     public void jump(){
-        velocity.y = 3000;
+        if(getPosition().y < Gdx.graphics.getHeight()) {
+//            if(velocity.y < Gdx.graphics.getHeight()/2){
+                velocity.y = Gdx.graphics.getHeight()/2;
+//            }
+
+        }
         if(sound)
             flap.play();
 
 }
+
+
     public void dispose(){
         student.dispose();
         flap.dispose();
@@ -114,6 +129,7 @@ public class Student extends Sprite {
     public float getHeight() {
         return super.getHeight();
     }
+
 
 
 }
