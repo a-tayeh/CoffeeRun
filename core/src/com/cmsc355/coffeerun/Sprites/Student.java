@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Student extends Sprite {
     private static final int GRAVITY = -100;
-    private static final int MOVEMENT = 100;
     private Rectangle playerBounds;
 
     private Vector3 position;
@@ -56,11 +55,7 @@ public class Student extends Sprite {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, y, 0);
     }
-//    public Student(int x, int y, Texture sp){
-//        position = new Vector3(x,y,0);
-//        velocity = new Vector3(0,0,0);
-//        student = new Texture(sp.getTextureData());
-//    }
+
     public void update(float dt)
     {
 

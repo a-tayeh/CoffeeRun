@@ -1,15 +1,12 @@
 package com.cmsc355.coffeerun.States;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
 //import com.cmsc355.coffeerun.CoffeeRun;
 import com.cmsc355.coffeerun.Sprites.Cups;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
@@ -144,24 +141,18 @@ public class PlayState extends State {
 
         decrementHealth(Gdx.graphics);
 
-//        if ((CoffeeRun.V_WIDTH-100)*health <=0)
-//            System.out.println(CoffeeRun.V_WIDTH*health);
         timeCount += dt;
-//        if (timeCount>5)
-//        {
-//            timeCount= 0;
-//            createObstacles();
-//        }
+
 
         for(Obstacles obstacle : obstacles){
-            if(cam.position.x - (cam.viewportWidth/2)> obstacle.getBtmPos().x + obstacle.getBtmObstacle().getWidth()){
-                obstacle.reposition(obstacle.getBtmPos().x +  ((52+OBSTACLE_SPACE) *  OBSTACLE_COUNT));
+            if(cam.position.x - (cam.viewportWidth/2)> obstacle.getObstacleCollisionBounds().x + obstacle.getObstacleCollisionBounds().getWidth()){
+                obstacle.reposition(obstacle.getObstacleCollisionBounds().x +  ((52+OBSTACLE_SPACE) *  OBSTACLE_COUNT));
             }
         }
 
         for(Cups cup : cups) {
-                if (cam.position.x - (cam.viewportWidth / 2) > cup.getBtmPos().x + cup.getCoffeeCup().getWidth()) {
-                    cup.reposition(cup.getBtmPos().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
+                if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
+                    cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
                 }
 
     }
@@ -203,10 +194,8 @@ public class PlayState extends State {
         sb.draw(backgroundSprite,0,0);
         ArrayList<Cups> cupsToRemove = new ArrayList<Cups>();
 
-//        sb.draw(obstacle.getBtmObstacle(),obstacle.getBtmPos().x,obstacle.getBtmPos().y);
         for(Obstacles obstacle : obstacles){
-//            sb.draw(obstacle.getBtmObstacle(),graphics.getWidth(),graphics.getHeight(), obstacle.getBtmObstacle().getWidth(), obstacle.getBtmObstacle().getHeight());
-            sb.draw(obstacle.getBtmObstacle(), obstacle.getBtmPos().x-=10, obstacle.getBtmPos().y);
+            sb.draw(obstacle.getObstacleTexture(), obstacle.getObstacleCollisionBounds().x-=20, obstacle.getObstacleCollisionBounds().y);
             if(obstacle.collides(student.getPlayerBounds())){
 
                 if(health>.1){
@@ -227,21 +216,21 @@ public class PlayState extends State {
             int counter = 0;
 
             if(!obstacles.get(counter).collides(cup.getBounds())) {
-                sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x -= 10, cup.getBtmPos().y);
+                sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 20, cup.getBounds().y, 75, 100);
             }
             if(cup.collides(student.getPlayerBounds())) {
                 if(health<1) {
                     health += .01f;
                 }
-                sb.draw(cup.getCoffeeCup(), cup.getBtmPos().x, cup.getBtmPos().y-=1000);
+                sb.draw(cup.getCoffeeCup(), cup.getBounds().x, cup.getBounds().y-=1000);
             }
 
             counter++;
+            cam.update();
 
 
         }
 
-        cam.update();
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
 
@@ -250,17 +239,6 @@ public class PlayState extends State {
 
 
         sb.end();
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(67 ,   34 , 167, 0.5f);
-        shapeRenderer.rect(student.getPlayerBounds().x,student.getPlayerBounds().y,200,200);
-        for(Obstacles obstacles: obstacles){
-            shapeRenderer.rect(obstacles.getBounds().x-=10,obstacles.getBounds().y,200,200);
-        }
-        for(Cups cup: cups) {
-            shapeRenderer.rect(cup.getBounds().x -= 10, cup.getBounds().y, 75, 100);
-            }
-            shapeRenderer.end();
 
 
     }
