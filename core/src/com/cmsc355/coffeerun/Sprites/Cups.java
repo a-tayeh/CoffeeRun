@@ -26,10 +26,10 @@ public class Cups extends Sprite {
 
 
     public Cups(float x){
-        coffeeCup = new Texture("coffee.jpg");
+        coffeeCup = new Texture("coffee.png");
         rand = new Random();
-        btmPos = new Vector2(x, rand.nextInt(FLUCTUATION));
-        bounds = new Rectangle(btmPos.x, btmPos.y, 100, 100);
+        btmPos = new Vector2(x, 50*rand.nextInt(FLUCTUATION));
+        bounds = new Rectangle(btmPos.x, btmPos.y, 75, 100);
         remove = false;
     }
 

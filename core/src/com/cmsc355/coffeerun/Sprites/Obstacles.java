@@ -17,10 +17,10 @@ public class Obstacles extends Sprite {
 
 
 
-    private static final int FLUCTUATION = 500;
+    private static final int FLUCTUATION = 50;
 
     public Obstacles(float x){
-        obstacleTexture = new Texture("obstacle.jpg");
+        obstacleTexture = new Texture("obstacletrash.png");
         rand = new Random();
         obstacleTexturePosition = new Vector2(x, rand.nextInt(FLUCTUATION));
         obstacleCollisionBounds = new Rectangle(obstacleTexturePosition.x-=20, obstacleTexturePosition.y,200,200);

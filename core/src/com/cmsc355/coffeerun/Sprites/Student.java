@@ -32,7 +32,7 @@ public class Student extends Sprite {
         this.yOriginal = y;
         position = new Vector3(0,0,0);
         velocity = new Vector3(x,y,0);
-        student = new Texture("peach.png");
+        student = new Texture("studentRunner.png");
         playerBounds = new Rectangle(x, y, 200, 200);
         flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
         sound = true;
