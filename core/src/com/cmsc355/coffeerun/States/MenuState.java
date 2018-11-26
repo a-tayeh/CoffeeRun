@@ -45,17 +45,42 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
-        doHandleInput(settings,3, new MusicState(gsm),true);
+
+        if (input.justTouched()) {
+            // Gets clicked/ touched position
+            clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
+            if (clickPosition.x > (Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2)) &&
+                    (clickPosition.x < (Gdx.graphics.getWidth() / 2 + (playButton.getWidth())))) {
+                if (clickPosition.y > (Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2)) &&
+                        (clickPosition.y < (Gdx.graphics.getHeight() / 2 + (playButton.getHeight() / 2)))) {
+                    gsm.set(new PlayState(gsm));
+                }
+            }
+            if ((clickPosition.x > (Gdx.graphics.getWidth() - (character_selector.getWidth() / 2)) &&
+                    (clickPosition.x < (Gdx.graphics.getWidth())))) {
+                if (clickPosition.y > 0 && clickPosition.y < character_selector.getHeight()) {
+                    gsm.set(new CharacterState(gsm));
+                    dispose();
+                }
+            }
+            if (clickPosition.x > 0 && clickPosition.x < settings.getWidth()) {
+                if (clickPosition.y > Gdx.graphics.getHeight() - settings.getHeight() / 6 && clickPosition.y < Gdx.graphics.getHeight()) {
+                    gsm.set(new MusicState(gsm));
+                    dispose();
+                }
+            }
+
+        /*doHandleInput(settings,3, new MusicState(gsm),true);
         doHandleInput(playButton,1, new PlayState(gsm), true);
         doHandleInput(character_selector,2, new CharacterState(gsm), true);
-
+        */
+        }
     }
 
     public void doHandleInput(Texture texture, int choice, State newState, boolean doDispose) {
-        if (input.justTouched()) {
+       /*if (input.justTouched()) {
             // Gets clicked/ touched position
-            if (choice == 1) {
-                clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
+            clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
                 if (clickPosition.x > (Gdx.graphics.getWidth() / 2 - (texture.getWidth() / 2)) &&
                         (clickPosition.x < (Gdx.graphics.getWidth() / 2 + (texture.getWidth())))) {
                     if (clickPosition.y > (Gdx.graphics.getHeight() / 2 - (texture.getHeight() / 2)) &&
@@ -63,7 +88,7 @@ public class MenuState extends State {
                         gsm.set(newState);
                         if (doDispose) dispose();
                     }
-                }
+               }
 
             }
             if(choice==2){
@@ -84,9 +109,9 @@ public class MenuState extends State {
                         if(doDispose) dispose();
                     }
                 }
-            }
+            }*/
         }
-    }
+
 
     @Override
     public void update(float dt) {
@@ -107,8 +132,8 @@ public class MenuState extends State {
         sb.end();
     }
 
-    @Override
-    public void dispose() {
+   @Override
+    public void dispose(){
         background.dispose();
         playButton.dispose();
         character_selector.dispose();

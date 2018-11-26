@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector3;
-
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
@@ -46,9 +45,14 @@ public class Student extends Sprite {
 
     }
     public Student(int x, int y, Texture sp){
-        position = new Vector3(x,y,0);
-        velocity = new Vector3(0,0,0);
+        this.yOriginal = y;
+        position = new Vector3(0,0,0);
+        velocity = new Vector3(x,y,0);
         student = new Texture(sp.getTextureData());
+        playerBounds = new Rectangle(x, y, (graphics.getWidth()/10), (graphics.getWidth()/10));
+        flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
+        sound = true;
+        //  colliding = false;
     }
 
 
