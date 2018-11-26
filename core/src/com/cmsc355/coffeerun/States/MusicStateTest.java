@@ -1,11 +1,9 @@
 package com.cmsc355.coffeerun.States;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.backends.headless.mock.audio.MockMusic;
 import com.badlogic.gdx.graphics.Texture;
 import com.cmsc355.coffeerun.CoffeeRun;
 
@@ -64,7 +62,7 @@ public class MusicStateTest extends GameTest {
         MusicState musicState = new MusicState(gsm, mockInput);
 
         CoffeeRun coffeeRun = new CoffeeRun(music);
-        coffeeRun.music.setVolume(0.8f);
+        CoffeeRun.music.setVolume(0.8f);
         musicState.doHandleInput(texture,1, coffeeRun.music, musicState,false);
         double vol = coffeeRun.music.getVolume();
 

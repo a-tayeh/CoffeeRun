@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class Obstacles extends Sprite {
     public Obstacles(float x){
         obstacleTexture = new Texture("obstacletrash.png");
         rand = new Random();
-        obstacleTexturePosition = new Vector2(x, rand.nextInt(FLUCTUATION));
+        obstacleTexturePosition = new Vector2(x, rand.nextInt(FLUCTUATION+1));
         obstacleCollisionBounds = new Rectangle(obstacleTexturePosition.x-=20, obstacleTexturePosition.y,200,200);
 
 

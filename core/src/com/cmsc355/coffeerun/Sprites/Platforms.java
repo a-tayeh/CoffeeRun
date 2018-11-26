@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 import java.util.Random;
 
@@ -23,12 +22,12 @@ public class Platforms extends Sprite {
 
 
 
-    private static final int FLUCTUATION = 600;
+    private static final int FLUCTUATION = 800;
 
     public Platforms(float x){
         platformTexture = new Texture("platform.jpg");
         rand = new Random();
-        platformTexturePosition = new Vector2(x, 400*rand.nextInt(FLUCTUATION));
+        platformTexturePosition = new Vector2(x, rand.nextInt(300*(FLUCTUATION+1)));
         platformCollisionBounds = new Rectangle(platformTexturePosition.x-=20, platformTexturePosition.y,platformTexture.getWidth(),platformTexture.getHeight());
 
 

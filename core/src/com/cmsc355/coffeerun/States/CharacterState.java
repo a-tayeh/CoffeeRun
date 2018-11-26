@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 public class CharacterState extends State {
     private Texture char1, char2; // the two character assets
     private Texture bg; // background of the character selector screen.
-    private Vector3 clickposition;
+    private Vector3 clickPosition;
     private Input input;
 
 
@@ -21,31 +21,19 @@ public class CharacterState extends State {
         char1 = new Texture("peach256.png");
         char2 = new Texture("orange.png");
         bg = new Texture("mario.jpeg");
-        clickposition = new Vector3();
+        clickPosition = new Vector3();
     }
 
 
     public CharacterState(GameStateManager gsm, Input input, int choice){
         super(gsm);
         this.input = input;
-        clickposition = new Vector3();
+        clickPosition = new Vector3();
 
         //gsm.push(new CharacterState(gsm, input));
     }
 
     protected void handleInput() {
-//        if(Gdx.input.justTouched()) {
-//            // Gets clicked/ touched position
-//            clickposition.set(Gdx.input.getX(), Gdx.input.getY(), 0); // screen coordinates.
-//            if (clickposition.x < (Gdx.graphics.getWidth()/2)) {
-//                gsm.set(new PlayState(gsm, char1));
-//                dispose();
-//            }
-//            else{
-//                gsm.set(new PlayState(gsm, char2));
-//                dispose();
-//            }
-//        }
         doHandleInput(new PlayState(gsm,char1),1,true);
         doHandleInput(new PlayState(gsm,char2),2,true);
     }
@@ -55,8 +43,8 @@ public class CharacterState extends State {
         if(input.justTouched()) {
             // Gets clicked/ touched position
             if(choice == 1) {
-                clickposition.set(input.getX(), input.getY(), 0); // screen coordinates.
-                if (clickposition.x < (Gdx.graphics.getWidth() / 2)) {
+                clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
+                if (clickPosition.x < (Gdx.graphics.getWidth() / 2)) {
                     //                gsm.set(new PlayState(gsm, char1));
                     gsm.set(newState);
                     if (doDispose)
