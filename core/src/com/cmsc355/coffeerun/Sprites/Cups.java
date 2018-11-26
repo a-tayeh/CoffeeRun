@@ -1,12 +1,10 @@
 package com.cmsc355.coffeerun.Sprites;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.cmsc355.coffeerun.States.PlayState;
 
 
 import java.util.Random;
@@ -20,15 +18,15 @@ public class Cups extends Sprite {
     private Vector3 velocity;
     private static final int GRAVITY = -100;
     private static final int MOVEMENT = -100;
-    private static final int FLUCTUATION = 500;
+    private static final int FLUCTUATION = 1000;
     private Rectangle bounds;
-    public boolean remove;
+    private boolean remove;
 
 
     public Cups(float x){
         coffeeCup = new Texture("coffee.png");
         rand = new Random();
-        btmPos = new Vector2(x, 50*rand.nextInt(FLUCTUATION));
+        btmPos = new Vector2(x, 300*rand.nextInt(FLUCTUATION+1));
         bounds = new Rectangle(btmPos.x, btmPos.y, 75, 100);
         remove = false;
     }

@@ -1,16 +1,12 @@
 package com.cmsc355.coffeerun.States;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.cmsc355.coffeerun.Sprites.Student;
-import com.badlogic.gdx.math.Rectangle;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 

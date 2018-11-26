@@ -1,19 +1,15 @@
 package com.cmsc355.coffeerun;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.cmsc355.coffeerun.Screens.PlayScreen;
 import com.cmsc355.coffeerun.States.GameStateManager;
 import com.cmsc355.coffeerun.States.MenuState;
 
-public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdaptor
-	public static int V_WIDTH =0;
+public class CoffeeRun extends Game {
+	private static int V_WIDTH =0;
 	public static int V_HEIGHT = 0;
 
 	//DisplayMetrics metrics = new DisplayMetrics();
@@ -25,11 +21,11 @@ public class CoffeeRun extends Game { //in flappy bird it extend ApplicationAdap
 	public static final String TITLE = "Coffee Run";
 
 	public CoffeeRun(){
-		this.music = music;
+		super();
 	}
 
 	public CoffeeRun(Music music){
-		this.music = music;
+		CoffeeRun.music = music;
 	}
 
 
