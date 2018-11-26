@@ -8,8 +8,10 @@ import com.badlogic.gdx.math.Vector3;
 
 import com.badlogic.gdx.math.Rectangle;
 
+import static com.badlogic.gdx.Gdx.graphics;
+
 public class Student extends Sprite {
-    private static final int GRAVITY = -100;
+    private static  int GRAVITY = -100;
     private Rectangle playerBounds;
 
     private Vector3 position;
@@ -33,7 +35,7 @@ public class Student extends Sprite {
         position = new Vector3(0,0,0);
         velocity = new Vector3(x,y,0);
         student = new Texture("studentRunner.png");
-        playerBounds = new Rectangle(x, y, 200, 200);
+        playerBounds = new Rectangle(x, y, (graphics.getWidth()/10), (graphics.getWidth()/10));
         flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
         sound = true;
       //  colliding = false;
@@ -62,9 +64,12 @@ public class Student extends Sprite {
         if(position.y>yOriginal+20) {
                 velocity.add(0, GRAVITY, 0);
         }
-        else if(position.y != yOriginal) {
-            velocity.y = 0;
-            position.y =yOriginal;
+        else if(position.y < yOriginal) {
+                velocity.y = 0;
+                position.y =yOriginal;
+
+
+
         }
 
 

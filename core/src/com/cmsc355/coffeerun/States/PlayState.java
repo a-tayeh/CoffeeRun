@@ -23,14 +23,14 @@ public class PlayState extends State {
     private static int OBSTACLE_COUNT = 4;
     private ArrayList<Obstacles> obstacles;
     private ArrayList<Platforms> platforms;
-    private static int platformsCount = 4;
+    private static int platformsCount = 3;
+    private static final int PLATFORM_SPACE = 600;
     private Student student;
     private Obstacles obstacle;
     private float health = 1; //0 = dead, 1 = full health
     private float timeCount = 0;
     private Texture healthBar;
     private Input input;
-
     private static final int COFFEE_SPACE = 500;
     private static final int COFFEE_COUNT = 4;
     private ArrayList<Cups> cups;
@@ -47,7 +47,7 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         shapeRenderer = new ShapeRenderer();
-        student = new Student(graphics.getWidth()/10,graphics.getHeight()/10); //recongigure this for every screen (screemheight/8)
+        student = new Student((graphics.getWidth()/10)+100,(graphics.getWidth()/10)-50); //recongigure this for every screen (screemheight/8)
 //        obstacle = new Obstacles(500);
         cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
         obstacles = new ArrayList<Obstacles>();
@@ -138,7 +138,7 @@ public class PlayState extends State {
         //make sure this constanct doesnt mess with size
         //of different screents
        //make hump
-        //cam.position.set(student.getX(), cam.viewportHeight / 2, 0);
+
 
 
 
@@ -152,7 +152,7 @@ public class PlayState extends State {
             if(cam.position.x - (cam.viewportWidth/2)> obstacle.getObstacleCollisionBounds().x + obstacle.getObstacleCollisionBounds().getWidth()){
                 if(!cups.get(obstacleCount).collides(obstacle.getObstacleCollisionBounds())) {
 
-                    obstacle.reposition(obstacle.getObstacleCollisionBounds().x + ((52 + OBSTACLE_SPACE) * OBSTACLE_COUNT));
+                    obstacle.reposition(obstacle.getObstacleCollisionBounds().x + ((52+OBSTACLE_SPACE) * OBSTACLE_COUNT));
                 }
             }
             obstacleCount++;
@@ -170,7 +170,7 @@ public class PlayState extends State {
 
         for(Platforms platform : platforms) {
             if (cam.position.x - (cam.viewportWidth / 2) > platform.getPlatformCollisionBounds().x + platform.getPlatformCollisionBounds().getWidth()) {
-                platform.reposition(platform.getPlatformCollisionBounds().x + ((30 + COFFEE_SPACE) * platformsCount));
+                platform.reposition(platform.getPlatformCollisionBounds().x + ((70+PLATFORM_SPACE) * platformsCount));
             }
 
 
@@ -187,7 +187,7 @@ public class PlayState extends State {
 
     public void decrementHealth(Graphics graphics){
         if(health*(graphics.getWidth() -100)>0)
-            this.health-=.0004f;
+            this.health-=.004f;
     }
 
     @Override
@@ -266,10 +266,17 @@ public class PlayState extends State {
         }
 
         for(Platforms platform : platforms) {
-                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 20, platform.getPlatformCollisionBounds().y, 500, 100);
+                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 20, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(),platform.getPlatformTexture().getHeight());
             if (platform.collides(student.getPlayerBounds())){
-                student.getVelocity().y = 0;
-                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
+//                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
+//                    student.getVelocity().y = 0;
+//                    student.getPosition().y = platform.getPlatformCollisionBounds().getY()-100;
+//                }
+//                else {
+                    student.getVelocity().y = 0;
+                    student.getPosition().y = platform.getPlatformTexturePosition().y + 30;
+//                }
+//                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
             }
 
 
@@ -280,12 +287,21 @@ public class PlayState extends State {
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
 
         //Gdx.getGraphic. ->can get height and width of any emulator that we use
-        sb.draw(student.getStudent(), student.getPosition().x, student.getPosition().y-50, (graphics.getWidth()/10),(graphics.getWidth()/10));
+        sb.draw(student.getStudent(), student.getPlayerBounds().x, student.getPlayerBounds().y, (graphics.getWidth()/10),(graphics.getWidth()/10));
 
 
         sb.end();
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(240 ,   0 , 0, 0.5f);
+        shapeRenderer.rect(student.getPlayerBounds().x,student.getPlayerBounds().y,(graphics.getWidth()/10),(graphics.getWidth()/10));
+        shapeRenderer.rect(0,0,300,120);
 
+
+        for(Platforms platform : platforms){
+            shapeRenderer.rect(platform.getPlatformCollisionBounds().x-=20, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(),platform.getPlatformTexture().getHeight());
+        }
+        shapeRenderer.end();
     }
 
     @Override

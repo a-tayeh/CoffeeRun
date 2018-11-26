@@ -26,10 +26,10 @@ public class Platforms extends Sprite {
     private static final int FLUCTUATION = 600;
 
     public Platforms(float x){
-        platformTexture = new Texture("platform.png");
+        platformTexture = new Texture("platform.jpg");
         rand = new Random();
         platformTexturePosition = new Vector2(x, 400*rand.nextInt(FLUCTUATION));
-        platformCollisionBounds = new Rectangle(platformTexturePosition.x-=20, platformTexturePosition.y,500,200);
+        platformCollisionBounds = new Rectangle(platformTexturePosition.x-=20, platformTexturePosition.y,platformTexture.getWidth(),platformTexture.getHeight());
 
 
 
