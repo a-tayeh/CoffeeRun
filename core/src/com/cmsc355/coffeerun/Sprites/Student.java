@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import static com.badlogic.gdx.Gdx.graphics;
 
 public class Student extends Sprite {
-    private static  int GRAVITY = -100;
+    private static final int GRAVITY = -100;
     private Rectangle playerBounds;
 
     private Vector3 position;

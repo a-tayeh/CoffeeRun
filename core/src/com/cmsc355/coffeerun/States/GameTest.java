@@ -11,7 +11,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
-import static org.mockito.Mockito.when;
 
 public class GameTest {
     private static Application application;
@@ -29,7 +28,7 @@ public class GameTest {
             @Override public void dispose() {}
         });
 
-        // Use Mockito to mock the OpenGL methods since we are running headlessly
+        // Use Mockito to mock the OpenGL methods since we are running headless
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
         Input mockInput = Mockito.mock(Input.class);
