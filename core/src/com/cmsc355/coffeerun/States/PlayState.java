@@ -23,12 +23,9 @@ public class PlayState extends State {
     private static int OBSTACLE_SPACE = 600;
     private static int OBSTACLE_COUNT = 4;
     private ArrayList<Obstacles> obstacles;
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
     private ArrayList<Platforms> platforms;
     private static int platformsCount = 3;
     private static final int PLATFORM_SPACE = 700;
@@ -146,7 +143,7 @@ public class PlayState extends State {
 
 
 
-  
+
 
     @Override
     public void update(float dt) {
@@ -174,12 +171,12 @@ public class PlayState extends State {
         }
 
         for(Cups cup : cups) {
-                if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
-                        cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
-                }
+            if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
+                cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
+            }
 
 
-    }
+        }
 
         for(Platforms platform : platforms) {
             if (cam.position.x - (cam.viewportWidth / 2) > platform.getPlatformCollisionBounds().x + platform.getPlatformCollisionBounds().getWidth()) {
@@ -190,7 +187,7 @@ public class PlayState extends State {
         }
         cam.update();
 
-        }
+    }
 
     public void createObstacles(){
 
@@ -261,17 +258,16 @@ public class PlayState extends State {
         }
         int counterCup = 0;
         for(Cups cup : cups) {
-                if (!obstacles.get(counterCup).collides(cup.getBounds()) && cup.getBtmPos().y > student.getPlayerBounds().getHeight()) {
-                    sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 5, cup.getBounds().y, 75, 100);
+            if (!obstacles.get(counterCup).collides(cup.getBounds()) && cup.getBtmPos().y > student.getPlayerBounds().getHeight()) {
+                sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 5, cup.getBounds().y, 75, 100);
                 if(cup.collides(student.getPlayerBounds())) {
                     if(health<1) {
                         health += .07f;
                     }
                     sb.draw(cup.getCoffeeCup(), cup.getBounds().x, cup.getBounds().y-=1000);
-<<<<<<< HEAD
                 }
 
-        }
+            }
 
 
             cam.update();
@@ -297,24 +293,10 @@ public class PlayState extends State {
             }
             cam.update();
 
-=======
-                }
-
-        }
-
-
-            cam.update();
-            counterCup++;
->>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
 
 
         }
 
-<<<<<<< HEAD
-=======
-        platformCollisionAndDetection(sb);
-
->>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
 
@@ -354,24 +336,17 @@ public class PlayState extends State {
         return new Cups(12);
     }
 
-<<<<<<< HEAD
     public void platformCollisionAndDetection(){
         for(Platforms platform : platforms) {
             if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
                 sb1.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
-=======
-    public void platformCollisionAndDetection(SpriteBatch sb){
-        for(Platforms platform : platforms) {
-            if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
-                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
->>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
                 if (platform.collides(student.getPlayerBounds())){
 //                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
 //                    student.getVelocity().y = 0;
 //                    student.getPosition().y = platform.getPlatformCollisionBounds().getY()-100;
 //                }
 //                else {
-                        student.platform_collision(platform.getPlatformTexturePosition().y + 30);
+                    student.platform_collision(platform.getPlatformTexturePosition().y + 30);
 //                }
 //                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
                 }
@@ -384,12 +359,9 @@ public class PlayState extends State {
         }
     }
 
-<<<<<<< HEAD
     public int getPlatforms() {
         return platforms.size();
     }
 
-=======
->>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
 
 }
