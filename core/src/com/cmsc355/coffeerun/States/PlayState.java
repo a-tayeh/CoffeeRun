@@ -23,9 +23,12 @@ public class PlayState extends State {
     private static int OBSTACLE_SPACE = 600;
     private static int OBSTACLE_COUNT = 4;
     private ArrayList<Obstacles> obstacles;
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
     private ArrayList<Platforms> platforms;
     private static int platformsCount = 3;
     private static final int PLATFORM_SPACE = 700;
@@ -265,6 +268,7 @@ public class PlayState extends State {
                         health += .07f;
                     }
                     sb.draw(cup.getCoffeeCup(), cup.getBounds().x, cup.getBounds().y-=1000);
+<<<<<<< HEAD
                 }
 
         }
@@ -293,10 +297,24 @@ public class PlayState extends State {
             }
             cam.update();
 
+=======
+                }
+
+        }
+
+
+            cam.update();
+            counterCup++;
+>>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
 
 
         }
 
+<<<<<<< HEAD
+=======
+        platformCollisionAndDetection(sb);
+
+>>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
 
@@ -336,10 +354,17 @@ public class PlayState extends State {
         return new Cups(12);
     }
 
+<<<<<<< HEAD
     public void platformCollisionAndDetection(){
         for(Platforms platform : platforms) {
             if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
                 sb1.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
+=======
+    public void platformCollisionAndDetection(SpriteBatch sb){
+        for(Platforms platform : platforms) {
+            if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
+                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
+>>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
                 if (platform.collides(student.getPlayerBounds())){
 //                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
 //                    student.getVelocity().y = 0;
@@ -359,9 +384,12 @@ public class PlayState extends State {
         }
     }
 
+<<<<<<< HEAD
     public int getPlatforms() {
         return platforms.size();
     }
 
+=======
+>>>>>>> c90a5309a455a2ce2a8a0055e4bf616fb1919d25
 
 }

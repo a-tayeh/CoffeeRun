@@ -1,8 +1,6 @@
 package com.cmsc355.coffeerun;
 
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
