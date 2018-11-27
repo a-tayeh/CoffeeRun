@@ -3,18 +3,14 @@ package com.cmsc355.coffeerun.States;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.cmsc355.coffeerun.CoffeeRun;
-
-import javax.xml.soap.Text;
 
 public class MenuState extends State {
     private Texture background;
     private Texture playButton;
     private Texture character_selector;
-    private Vector3 clickposition, worldposition;
+    private Vector3 clickPosition, worldPosition;
     private Input input;
     private Texture settings;
 
@@ -22,25 +18,20 @@ public class MenuState extends State {
     public MenuState(GameStateManager gsm) {
         super(gsm);
 
-        background = new Texture("mario.jpeg");
-        playButton = new Texture("playbuttonsmall.png");
-        System.out.println(playButton.toString());
+        background = new Texture("Menu_Title.png");
+        playButton = new Texture("Start_button.png");
         settings = new Texture("settings.jpg");
 
         character_selector = new Texture("character.png");
-        clickposition = new Vector3(); // stores screen coordinates
-        worldposition = new Vector3(); // stores world coordinates
+        clickPosition = new Vector3(); // stores screen coordinates
+        worldPosition = new Vector3(); // stores world coordinates
         input = Gdx.input;
     }
 
     public MenuState(GameStateManager gsm, String mario, String playB, String charB) {
         super(gsm);
-        //String sadlfja = mario;
-        //background = new Texture(mario);
-        //playButton = new Texture(playB);
-        //character_selector = new Texture(charB);
-        clickposition = new Vector3(); // stores screen coordinates
-        worldposition = new Vector3(); // stores world coordinates
+        clickPosition = new Vector3(); // stores screen coordinates
+        worldPosition = new Vector3(); // stores world coordinates
         input = Gdx.input;
 
     }
@@ -48,34 +39,11 @@ public class MenuState extends State {
     public MenuState(GameStateManager gsm, Input input) {
         super(gsm);
         this.input = input;
-        clickposition = new Vector3(); //talk about this
+        clickPosition = new Vector3(); //talk about this
     }
 
     @Override
     public void handleInput() {
-        //|| added for testing purposes
-//        if (Gdx.input.justTouched()) {
-//            // Gets clicked/ touched position
-//            clickposition.set(Gdx.input.getX(), Gdx.input.getY(), 0); // screen coordinates.
-//            if (clickposition.x > (Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2)) &&
-//                    (clickposition.x < (Gdx.graphics.getWidth() / 2 + (playButton.getWidth())))) {
-//                if (clickposition.y > (Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2)) &&
-//                        (clickposition.y < (Gdx.graphics.getHeight() / 2 + (playButton.getHeight() / 2)))) {
-//                    gsm.set(new PlayState(gsm));
-//                    dispose();
-//                }
-//            } else if ((clickposition.x > (Gdx.graphics.getWidth() - (character_selector.getWidth() / 2)) &&
-//                    (clickposition.x < (Gdx.graphics.getWidth())))) {
-//                if (clickposition.y > 0 && clickposition.y < character_selector.getHeight()) {
-//                    gsm.set(new CharacterState(gsm));
-//                    dispose();
-//                }
-//            }
-//
-//
-//        } else {
-//
-//        }
         doHandleInput(settings,3, new MusicState(gsm),true);
         doHandleInput(playButton,1, new PlayState(gsm), true);
         doHandleInput(character_selector,2, new CharacterState(gsm), true);
@@ -86,11 +54,11 @@ public class MenuState extends State {
         if (input.justTouched()) {
             // Gets clicked/ touched position
             if (choice == 1) {
-                clickposition.set(input.getX(), input.getY(), 0); // screen coordinates.
-                if (clickposition.x > (Gdx.graphics.getWidth() / 2 - (texture.getWidth() / 2)) &&
-                        (clickposition.x < (Gdx.graphics.getWidth() / 2 + (texture.getWidth())))) {
-                    if (clickposition.y > (Gdx.graphics.getHeight() / 2 - (texture.getHeight() / 2)) &&
-                            (clickposition.y < (Gdx.graphics.getHeight() / 2 + (texture.getHeight() / 2)))) {
+                clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
+                if (clickPosition.x > (Gdx.graphics.getWidth() / 2 - (texture.getWidth() / 2)) &&
+                        (clickPosition.x < (Gdx.graphics.getWidth() / 2 + (texture.getWidth())))) {
+                    if (clickPosition.y > (Gdx.graphics.getHeight() / 2 - (texture.getHeight() / 2)) &&
+                            (clickPosition.y < (Gdx.graphics.getHeight() / 2 + (texture.getHeight() / 2)))) {
                         gsm.set(newState);
                         if (doDispose) dispose();
                     }
@@ -98,9 +66,9 @@ public class MenuState extends State {
 
             }
             if(choice==2){
-                 if ((clickposition.x > (Gdx.graphics.getWidth() - (texture.getWidth() / 2)) &&
-                        (clickposition.x < (Gdx.graphics.getWidth())))) {
-                    if (clickposition.y > 0 && clickposition.y < texture.getHeight()) {
+                 if ((clickPosition.x > (Gdx.graphics.getWidth() - (texture.getWidth() / 2)) &&
+                        (clickPosition.x < (Gdx.graphics.getWidth())))) {
+                    if (clickPosition.y > 0 && clickPosition.y < texture.getHeight()) {
                         gsm.set(newState);
                         if (doDispose) dispose();
                     }
@@ -108,9 +76,9 @@ public class MenuState extends State {
 
             }
             if(choice ==3){
-                clickposition.set(input.getX(), input.getY(),0);
-                if(clickposition.x > 0 && clickposition.x < texture.getWidth()/6){
-                    if(clickposition.y >  Gdx.graphics.getHeight() - texture.getHeight()/6 && clickposition.y < Gdx.graphics.getHeight() ){
+                clickPosition.set(input.getX(), input.getY(),0);
+                if(clickPosition.x > 0 && clickPosition.x < texture.getWidth()/6){
+                    if(clickPosition.y >  Gdx.graphics.getHeight() - texture.getHeight()/6 && clickPosition.y < Gdx.graphics.getHeight() ){
                         gsm.set(newState);
                         if(doDispose) dispose();
                     }
@@ -131,7 +99,7 @@ public class MenuState extends State {
 
         sb.begin();
         sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        sb.draw(playButton, Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2), Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2));
+        sb.draw(playButton, Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2), Gdx.graphics.getHeight() / 2 - (playButton.getHeight() ));
         sb.draw(character_selector, Gdx.graphics.getWidth() - (character_selector.getWidth()), Gdx.graphics.getHeight() - character_selector.getHeight());
         sb.draw(settings, 0,0, Gdx.graphics.getWidth()/6, Gdx.graphics.getHeight()/6);
 
@@ -156,37 +124,21 @@ public class MenuState extends State {
         return gsm.getCurrentState();
     }
 
-    public void setClickposition(int x, int y, int z) {
-        this.clickposition.x = x;
-        this.clickposition.y = y;
-        this.clickposition.z = z;
+    public void setClickPosition(int x, int y, int z) {
+        this.clickPosition.x = x;
+        this.clickPosition.y = y;
+        this.clickPosition.z = z;
     }
 
     //simulate clicking on play Texture
-    public void clickPlaybutton() {
-//        if (clickposition.x > (Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2)) &&
-//                (clickposition.x < (Gdx.graphics.getWidth() / 2 + (playButton.getWidth())))) {
-//            if (clickposition.y > (Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2)) &&
-//                    (clickposition.y < (Gdx.graphics.getHeight() / 2 + (playButton.getHeight() / 2)))) {
-//                gsm.set(new PlayState(gsm));
-//                dispose();
-//            }
-//        }
+    public void clickPlayButton() {
         gsm.set(new PlayState((gsm)));
         dispose();
     }
 
-    //simluate clicking on character Texture
-    public void clickCharacterbutton() {
+    //simulate clicking on character Texture
+    public void clickCharacterButton() {
 
-//        if (clickposition.x > (Gdx.graphics.getWidth() / 2 - (playButton.getWidth() / 2)) &&
-//                (clickposition.x < (Gdx.graphics.getWidth() / 2 + (playButton.getWidth())))) {
-//            if (clickposition.y > (Gdx.graphics.getHeight() / 2 - (playButton.getHeight() / 2)) &&
-//                    (clickposition.y < (Gdx.graphics.getHeight() / 2 + (playButton.getHeight() / 2)))) {
-//                gsm.set(new PlayState(gsm));
-//                dispose();
-//            }
-//        }
         gsm.set(new CharacterState(gsm));
         dispose();
     }

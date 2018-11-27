@@ -9,30 +9,25 @@ import com.badlogic.gdx.math.Vector3;
 import com.cmsc355.coffeerun.CoffeeRun;
 import com.cmsc355.coffeerun.Sprites.Student;
 
-import javax.print.DocFlavor;
-import javax.swing.plaf.multi.MultiScrollBarUI;
-
-import sun.font.CCompositeFont;
-
 
 public class MusicState extends State {
-    private Texture ingameBackground;
+    private Texture inGameBackground;
     private Texture soundButton;
     private Texture musicButton;
     private Texture backBtn;
     private Input input;
-    private Vector3 clickposition;
+    private Vector3 clickPosition;
     private CoffeeRun coffeeRun;
     private Student student;
     public boolean soundOff;
     public MusicState(GameStateManager gsm){
         super(gsm);
-        ingameBackground = new Texture("mario.jpeg");
+        inGameBackground = new Texture("mario.jpeg");
         soundButton = new Texture("sound.png");
         musicButton = new Texture("music.png");
         backBtn = new Texture("backbutton.png");
         this.input = Gdx.input;
-        clickposition = new Vector3();
+        clickPosition = new Vector3();
         //coffeeRun = new CoffeeRun();
         student = new Student(0,0);
         soundOff = true;
@@ -42,13 +37,12 @@ public class MusicState extends State {
     public MusicState(GameStateManager gsm, Input input) {
         super(gsm);
         this.input = input;
-        clickposition = new Vector3(); //talk about this
+        clickPosition = new Vector3(); //talk about this
     }
 
     @Override
     protected void handleInput() {
-        //CoffeeRun coffeeRun = new CoffeeRun();
-        doHandleInput(musicButton,1, coffeeRun.music, new MusicState(gsm), false);
+        doHandleInput(musicButton,1, CoffeeRun.music, new MusicState(gsm), false);
         doHandleInput(soundButton, 2, coffeeRun.music, new MusicState(gsm), false);
         doHandleInput(soundButton,3,coffeeRun.music, new MenuState(gsm), true);
 
@@ -58,11 +52,11 @@ public class MusicState extends State {
         int heightOfGame = Gdx.graphics.getHeight()/2;
         int widthOfGame = Gdx.graphics.getWidth()/2;
         if (input.justTouched()) {
-            clickposition.set(input.getX(), input.getY(), 0);
+            clickPosition.set(input.getX(), input.getY(), 0);
             if (choice == 1) {
                 //this is for music button
-                if (clickposition.x < Gdx.graphics.getWidth() / 2 && clickposition.x > Gdx.graphics.getWidth() / 2 - 2 * (texture.getWidth() / 10))
-                    if (clickposition.y > Gdx.graphics.getHeight() / 2 && clickposition.y < Gdx.graphics.getHeight() / 2 + 2 * (texture.getWidth() / 10)) {
+                if (clickPosition.x < Gdx.graphics.getWidth() / 2 && clickPosition.x > Gdx.graphics.getWidth() / 2 - 2 * (texture.getWidth() / 10))
+                    if (clickPosition.y > Gdx.graphics.getHeight() / 2 && clickPosition.y < Gdx.graphics.getHeight() / 2 + 2 * (texture.getWidth() / 10)) {
                         if (music.getVolume() != 0)
                             music.setVolume(0);
                         else
@@ -73,8 +67,8 @@ public class MusicState extends State {
 
             if (choice == 2) {
                 //this is for sound button
-                if (clickposition.x > Gdx.graphics.getWidth() / 2 && clickposition.x < Gdx.graphics.getWidth() / 2 + 2 * (texture.getWidth() / 10))
-                    if (clickposition.y > Gdx.graphics.getHeight() / 2 && clickposition.y < Gdx.graphics.getHeight() / 2 + 2 * (texture.getWidth() / 10)) {
+                if (clickPosition.x > Gdx.graphics.getWidth() / 2 && clickPosition.x < Gdx.graphics.getWidth() / 2 + 2 * (texture.getWidth() / 10))
+                    if (clickPosition.y > Gdx.graphics.getHeight() / 2 && clickPosition.y < Gdx.graphics.getHeight() / 2 + 2 * (texture.getWidth() / 10)) {
                         if (soundOff) {
                             student.flap.setVolume(0, 0.0f);
 //                        student.flap.
@@ -87,10 +81,10 @@ public class MusicState extends State {
             }
 
             if(choice == 3){
-                if(clickposition.x > 0 && clickposition.x < texture.getWidth()) {
+                if(clickPosition.x > 0 && clickPosition.x < texture.getWidth()) {
                     System.out.println(input.getX());
                     System.out.println(input.getY());
-                    if(clickposition.y > 0 && clickposition.y < texture.getHeight()/2)
+                    if(clickPosition.y > 0 && clickPosition.y < texture.getHeight()/2)
                     gsm.set(state);
                     if (doDispose) {
                         dispose();
@@ -108,7 +102,7 @@ public class MusicState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(ingameBackground,0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        sb.draw(inGameBackground,0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         sb.draw(musicButton,Gdx.graphics.getWidth()/2 - 2*(musicButton.getWidth()/10), Gdx.graphics.getHeight()/2- (musicButton.getHeight()/10), musicButton.getWidth()/10, musicButton.getHeight()/10);
         sb.draw(soundButton, Gdx.graphics.getWidth()/2 + (musicButton.getWidth()/10), Gdx.graphics.getHeight()/2 - musicButton.getHeight()/10,musicButton.getWidth()/10, musicButton.getHeight()/10);
         sb.draw(backBtn, 0,Gdx.graphics.getHeight() - backBtn.getHeight()/2, backBtn.getWidth()/2, backBtn.getHeight()/2);

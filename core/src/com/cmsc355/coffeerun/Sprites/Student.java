@@ -8,12 +8,18 @@ import com.badlogic.gdx.math.Vector3;
 
 import com.badlogic.gdx.math.Rectangle;
 
+import static com.badlogic.gdx.Gdx.graphics;
+
 public class Student extends Sprite {
     private static final int GRAVITY = -100;
-    private static final int MOVEMENT = 100;
     private Rectangle playerBounds;
 
     private Vector3 position;
+
+    public void setVelocity(Vector3 velocity) {
+        this.velocity = velocity;
+    }
+
     private Vector3 velocity;
     public static Sound flap;
     private boolean sound;
@@ -28,12 +34,20 @@ public class Student extends Sprite {
         this.yOriginal = y;
         position = new Vector3(0,0,0);
         velocity = new Vector3(x,y,0);
-        student = new Texture("peach.png");
-        playerBounds = new Rectangle(x, y, 200, 200);
+        student = new Texture("studentRunner.png");
+        playerBounds = new Rectangle(x, y, (graphics.getWidth()/10), (graphics.getWidth()/10));
         flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
         sound = true;
       //  colliding = false;
 
+
+    }
+
+    public void platform_collision(float value){
+        getVelocity().y = 0;
+        getPosition().y = value;
+    }
+    public Student(){
 
     }
     public Student(int x, int y, Texture sp){
@@ -47,21 +61,21 @@ public class Student extends Sprite {
     public Student(int x, int y, int z) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, y, 0);
+        playerBounds = new Rectangle(x, y, 10, 10);
     }
-//    public Student(int x, int y, Texture sp){
-//        position = new Vector3(x,y,0);
-//        velocity = new Vector3(0,0,0);
-//        student = new Texture(sp.getTextureData());
-//    }
+
     public void update(float dt)
     {
 
         if(position.y>yOriginal+20) {
                 velocity.add(0, GRAVITY, 0);
         }
-        else if(position.y != yOriginal) {
-            velocity.y = 0;
-            position.y =yOriginal;
+        else if(position.y < yOriginal) {
+                velocity.y = 0;
+                position.y =yOriginal;
+
+
+
         }
 
 
@@ -94,11 +108,18 @@ public class Student extends Sprite {
     }
 
     public void jump(){
-        velocity.y = 3000;
+        if(getPosition().y < Gdx.graphics.getHeight()) {
+//            if(velocity.y < Gdx.graphics.getHeight()/2){
+                velocity.y = 3000;
+//            }
+
+        }
         if(sound)
             flap.play();
 
 }
+
+
     public void dispose(){
         student.dispose();
         flap.dispose();
@@ -114,6 +135,7 @@ public class Student extends Sprite {
     public float getHeight() {
         return super.getHeight();
     }
+
 
 
 }

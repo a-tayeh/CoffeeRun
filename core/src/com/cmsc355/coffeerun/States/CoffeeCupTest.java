@@ -1,17 +1,12 @@
 package com.cmsc355.coffeerun.States;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.cmsc355.coffeerun.Sprites.Cups;
-import com.cmsc355.coffeerun.Sprites.Obstacles;
 import com.cmsc355.coffeerun.Sprites.Student;
 
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;

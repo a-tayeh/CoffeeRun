@@ -1,12 +1,11 @@
 package com.cmsc355.coffeerun.Sprites;
 
-import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.cmsc355.coffeerun.States.PlayState;
 
 
 import java.util.Random;
@@ -20,16 +19,23 @@ public class Cups extends Sprite {
     private Vector3 velocity;
     private static final int GRAVITY = -100;
     private static final int MOVEMENT = -100;
-    private static final int FLUCTUATION = 500;
+    private static final int FLUCTUATION = 1000;
     private Rectangle bounds;
-    public boolean remove;
+    private boolean remove;
 
 
     public Cups(float x){
-        coffeeCup = new Texture("coffee.jpg");
+        coffeeCup = new Texture("coffee.png");
         rand = new Random();
-        btmPos = new Vector2(x, rand.nextInt(FLUCTUATION));
-        bounds = new Rectangle(btmPos.x, btmPos.y, 100, 100);
+        int rand2 = rand.nextInt((FLUCTUATION));
+        if(rand2< Gdx.graphics.getHeight()/4){
+            btmPos = new Vector2(x, rand2+Gdx.graphics.getHeight()/4);
+        }
+        else{
+            btmPos = new Vector2(x, rand2);
+
+        }
+        bounds = new Rectangle(btmPos.x, btmPos.y, 75, 100);
         remove = false;
     }
 
@@ -50,7 +56,14 @@ public class Cups extends Sprite {
     }
 
     public void reposition(float x){
-        btmPos.set(x, rand.nextInt(FLUCTUATION));
+        int rand2 = rand.nextInt((FLUCTUATION));
+        if(rand2< Gdx.graphics.getHeight()/4){
+            btmPos = new Vector2(x, rand2+Gdx.graphics.getHeight()/4);
+        }
+        else{
+            btmPos = new Vector2(x, rand2);
+
+        }
         bounds.setPosition(btmPos.x, btmPos.y);
 
     }
