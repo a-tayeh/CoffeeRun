@@ -1,5 +1,6 @@
 package com.cmsc355.coffeerun.States;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
 import com.cmsc355.coffeerun.Sprites.Platforms;
 import com.cmsc355.coffeerun.Sprites.Student;
@@ -8,7 +9,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.util.Platform;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -16,9 +19,8 @@ public class PlatformTest extends GameTest{
 
     @Test
     public void multiplePlatformOnScreen() {
-        PlayState playState = Mockito.mock(PlayState.class);
-        when(playState.getPlatformCount()).thenReturn(3);
-        assertTrue(playState.getObstacleCount() > 1);
+        PlayState playState = new PlayState();
+        assertNotNull(playState.getPlatforms());
 
 
     }
@@ -35,30 +37,44 @@ public class PlatformTest extends GameTest{
                 student.platform_collision(platform.getPlatformCollisionBounds().y);
                 z=false;
             }
-
-//        State state = Mockito.mock(PlayState.class);
-//        GameStateManager gsm = new GameStateManager();
-//        gsm.push(state);
         }
-            //when(platform.collides(student.getPlayerBounds())).thenReturn(true);
-            //when(platform.getPlatformCollisionBounds().y).thenReturn(student.getPlayerBounds().y);
-            System.out.println(platform.getPlatformCollisionBounds().y);
-            assertEquals(platform.getPlatformCollisionBounds().y, student.getPosition().y, 2.5);
-
+        assertEquals(platform.getPlatformCollisionBounds().y, student.getPosition().y, 2.5);
     }
 
 
     @Test
     public void stayOnPlatform(){
+        Platforms platform = new Platforms();
+        Student student = new Student(5, 100, 0);
+        student.jump();
+        boolean z=true;
+        int counter = 0;
+        float studentPosUponLanding = 0;
+        float studentPosAfterFall = 0;
+        while(z && counter<4) {
+            student.update(.000001f);
+            if(platform.collides(student.getPlayerBounds())){
+                studentPosUponLanding = student.getPlayerBounds().y;
 
-        Student student = Mockito.mock(Student.class);
-        State state = Mockito.mock(PlayState.class);
-        GameStateManager gsm = new GameStateManager();
+            }
+            while (platform.collides(student.getPlayerBounds())&& counter<4) {
+                student.update(.01f);
 
 
+                counter++;
+                if(counter==4){
+                    studentPosAfterFall = student.getPlayerBounds().y;
+                }
 
-        when(((PlayState) state).getHealth()).thenReturn(0.0f);
-       // assertEquals(gsm.getCurrentState(),"[" + menuStateMock.toString() + "]");
+            }
+        }
+        System.out.println("Student's y Position upon landing on platform: "+ studentPosUponLanding);
+        System.out.println("Student's y Position after falling off the platform: "+ studentPosAfterFall);
+
+
+        assertNotEquals(studentPosUponLanding, studentPosAfterFall, 2.5);
+
+
 
     }
 

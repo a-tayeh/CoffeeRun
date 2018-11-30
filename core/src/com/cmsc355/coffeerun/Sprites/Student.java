@@ -1,6 +1,7 @@
 package com.cmsc355.coffeerun.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,6 +27,9 @@ public class Student extends Sprite {
   //  public boolean colliding;
 
 
+    public int getyOriginal() {
+        return yOriginal;
+    }
 
     private int yOriginal = 0; //original yposition of the student
     private Texture student;
@@ -108,16 +112,46 @@ public class Student extends Sprite {
     }
 
     public void jump(){
-        if(getPosition().y < Gdx.graphics.getHeight()) {
-//            if(velocity.y < Gdx.graphics.getHeight()/2){
-                velocity.y = 3000;
-//            }
-
+        if(getPosition().y < (Gdx.graphics.getHeight()-getStudent().getHeight())+(getyOriginal())) {
+                velocity.y = (Gdx.graphics.getHeight()-getStudent().getHeight());
         }
         if(sound)
             flap.play();
 
 }
+
+    public void jumpTest(Graphics graphic, Student student){
+        if(student.position.y > (graphic.getHeight()-student.getHeight())+getyOriginal()) {
+            velocity.add(graphic.getHeight()+student.velocity.y);
+        }
+
+
+    }
+
+    public void updateJump(float dt, int rate)
+    {
+
+        if(position.y>yOriginal+20) {
+            velocity.add(0, rate, 0);
+        }
+        else if(position.y < yOriginal) {
+            velocity.y = 0;
+            position.y =yOriginal;
+
+
+
+        }
+
+
+
+        velocity.scl(dt);
+
+        position.add(0,velocity.y,0);
+        velocity.scl(1/dt);
+
+        playerBounds.setPosition(position.x, position.y);
+
+    }
 
 
     public void dispose(){

@@ -43,7 +43,7 @@ public class Platforms extends Sprite {
     }
 
     public Platforms(){
-        platformCollisionBounds = new Rectangle(5, 50,50,50);
+        platformCollisionBounds = new Rectangle(10, 50,50,50);
     }
 
     public Rectangle getPlatformCollisionBounds() {

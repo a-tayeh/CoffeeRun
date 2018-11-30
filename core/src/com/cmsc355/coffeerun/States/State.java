@@ -10,7 +10,9 @@ public abstract class State {
     protected Vector3 mouse;
     protected GameStateManager gsm;
     //private Viewport gamePort;
+    protected State(){
 
+    }
     protected State(GameStateManager gsm){
         this.gsm = gsm;
 

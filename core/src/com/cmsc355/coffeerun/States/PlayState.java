@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.cmsc355.coffeerun.Sprites.Cups;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
@@ -21,7 +22,11 @@ public class PlayState extends State {
     //CoffeeRun game;
     private static int OBSTACLE_SPACE = 600;
     private static int OBSTACLE_COUNT = 4;
+    private static final int OBSTACLE_LIMIT=6;
     private ArrayList<Obstacles> obstacles;
+
+
+
     private ArrayList<Platforms> platforms;
     private static int platformsCount = 3;
     private static final int PLATFORM_SPACE = 700;
@@ -36,6 +41,7 @@ public class PlayState extends State {
     private ArrayList<Cups> cups;
     private Cups cup;
     private ShapeRenderer shapeRenderer;
+    private SpriteBatch sb1;
 
 
     private Texture inGameBackground;  // our actual in-game background
@@ -43,13 +49,20 @@ public class PlayState extends State {
     float scrollTime = 0;              // the rate in which the background moves
 
 
+    protected PlayState(){
+        student = new Student();
+        platforms = new ArrayList<Platforms>();
+        for (int i = 1; i < platformsCount; i++) {
+            platforms.add(new Platforms());
+        }
+    }
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         shapeRenderer = new ShapeRenderer();
         student = new Student((graphics.getWidth()/10)+100,(graphics.getWidth()/10)-50); //recongigure this for every screen (screemheight/8)
 //        obstacle = new Obstacles(500);
-        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
+        cam.setToOrtho(false, graphics.getWidth(), graphics.getHeight());
         obstacles = new ArrayList<Obstacles>();
         cups = new ArrayList<Cups>();
         platforms = new ArrayList<Platforms>();
@@ -110,7 +123,10 @@ public class PlayState extends State {
         super(gsm);
         this.student = student;
         this.input = input;
+
     }
+
+
     @Override
     protected void handleInput() {
 
@@ -127,7 +143,7 @@ public class PlayState extends State {
 
 
 
-  
+
 
     @Override
     public void update(float dt) {
@@ -140,7 +156,7 @@ public class PlayState extends State {
 
         decrementHealth(Gdx.graphics);
 
-        timeCount += dt;
+
 
         int obstacleCount = 0;
         for(Obstacles obstacle : obstacles){
@@ -155,12 +171,12 @@ public class PlayState extends State {
         }
 
         for(Cups cup : cups) {
-                if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
-                        cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
-                }
+            if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
+                cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
+            }
 
 
-    }
+        }
 
         for(Platforms platform : platforms) {
             if (cam.position.x - (cam.viewportWidth / 2) > platform.getPlatformCollisionBounds().x + platform.getPlatformCollisionBounds().getWidth()) {
@@ -171,11 +187,13 @@ public class PlayState extends State {
         }
         cam.update();
 
-        }
+    }
 
     public void createObstacles(){
-
-        obstacles.add(new Obstacles(OBSTACLE_SPACE+52));
+        if(OBSTACLE_COUNT<=OBSTACLE_LIMIT) {
+            obstacles.add(new Obstacles(OBSTACLE_SPACE ));
+            OBSTACLE_COUNT++;
+        }
 
     }
 
@@ -201,6 +219,11 @@ public class PlayState extends State {
         if(scrollTime >=1.0f) {
             scrollTime = 0.0f;
         }
+//        float dt = 0.001f;
+//        timeCount += dt;
+//        if(timeCount>dt*3){
+//            createObstacles();
+//        }
 
         sb.begin();
         /* setU determines the starting scroll time which is zero, and SetU2 keeps incrementing that by 10
@@ -242,8 +265,8 @@ public class PlayState extends State {
         }
         int counterCup = 0;
         for(Cups cup : cups) {
-                if (!obstacles.get(counterCup).collides(cup.getBounds()) && cup.getBtmPos().y > student.getPlayerBounds().getHeight()) {
-                    sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 5, cup.getBounds().y, 75, 100);
+            if (!obstacles.get(counterCup).collides(cup.getBounds()) && cup.getBtmPos().y > student.getPlayerBounds().getHeight()) {
+                sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 5, cup.getBounds().y, 75, 100);
                 if(cup.collides(student.getPlayerBounds())) {
                     if(health<1) {
                         health += .07f;
@@ -251,7 +274,7 @@ public class PlayState extends State {
                     sb.draw(cup.getCoffeeCup(), cup.getBounds().x, cup.getBounds().y-=1000);
                 }
 
-        }
+            }
 
 
             cam.update();
@@ -260,7 +283,26 @@ public class PlayState extends State {
 
         }
 
-        platformCollisionAndDetection(sb);
+        for(Platforms platform : platforms) {
+            if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
+                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
+                if (platform.collides(student.getPlayerBounds())){
+//                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
+//                    student.getVelocity().y = 0;
+//                    student.getPosition().y = platform.getPlatformCollisionBounds().getY()-100;
+//                }
+//                else {
+                    student.platform_collision(platform.getPlatformTexturePosition().y + 30);
+//                }
+//                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
+                }
+
+            }
+            cam.update();
+
+
+
+        }
 
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
         sb.draw(healthBar,graphics.getWidth()-(graphics.getWidth()/4),graphics.getHeight()-100,(graphics.getWidth()/3-(graphics.getWidth()/8))* health, 60);
@@ -301,17 +343,17 @@ public class PlayState extends State {
         return new Cups(12);
     }
 
-    public void platformCollisionAndDetection(SpriteBatch sb){
+    public void platformCollisionAndDetection(SpriteBatch sb2){
         for(Platforms platform : platforms) {
             if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
-                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
+                sb2.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
                 if (platform.collides(student.getPlayerBounds())){
 //                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
 //                    student.getVelocity().y = 0;
 //                    student.getPosition().y = platform.getPlatformCollisionBounds().getY()-100;
 //                }
 //                else {
-                        student.platform_collision(platform.getPlatformTexturePosition().y + 30);
+                    student.platform_collision(platform.getPlatformTexturePosition().y + 30);
 //                }
 //                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
                 }
@@ -322,6 +364,10 @@ public class PlayState extends State {
 
 
         }
+    }
+
+    public int getPlatforms() {
+        return platforms.size();
     }
 
 
