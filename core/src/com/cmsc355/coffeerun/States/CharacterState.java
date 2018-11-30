@@ -34,18 +34,6 @@ public class CharacterState extends State {
     }
 
     protected void handleInput() {
-        /*if(Gdx.input.justTouched()) {
-            // Gets clicked/ touched position
-            clickPosition.set(Gdx.input.getX(), Gdx.input.getY(), 0); // screen coordinates.
-            if (clickPosition.x < (Gdx.graphics.getWidth()/2)) {
-                gsm.set(new PlayState(gsm, char1));
-                dispose();
-            }
-            else{
-                gsm.set(new PlayState(gsm, char2));
-                dispose();
-            }
-        }*/
 
        doHandleInput(char1, 1, true);
        doHandleInput(char2, 2, true);
@@ -57,6 +45,7 @@ public class CharacterState extends State {
             // Gets clicked/ touched position
             clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
             if(choice == 1) {
+                clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
                 if (clickPosition.x < (Gdx.graphics.getWidth() / 2)) {
                     gsm.set(new PlayState(gsm,chart));
                     if (doDispose)

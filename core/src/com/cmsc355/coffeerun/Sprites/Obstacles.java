@@ -22,7 +22,7 @@ public class Obstacles extends Sprite {
         obstacleTexture = new Texture("obstacletrash.png");
         rand = new Random();
         obstacleTexturePosition = new Vector2(x, rand.nextInt(FLUCTUATION+1));
-        obstacleCollisionBounds = new Rectangle(obstacleTexturePosition.x-=20, obstacleTexturePosition.y,200,200);
+        obstacleCollisionBounds = new Rectangle(obstacleTexturePosition.x-=5, obstacleTexturePosition.y,200,200);
 
 
 
@@ -48,7 +48,7 @@ public class Obstacles extends Sprite {
 
     public void reposition(float x){
         obstacleTexturePosition.set(x, rand.nextInt(FLUCTUATION));
-        obstacleCollisionBounds.setPosition(obstacleTexturePosition.x-=20, obstacleTexturePosition.y);
+        obstacleCollisionBounds.setPosition(obstacleTexturePosition.x-=5, obstacleTexturePosition.y);
 
 
 

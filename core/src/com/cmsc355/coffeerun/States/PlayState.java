@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.cmsc355.coffeerun.Sprites.Cups;
 import com.cmsc355.coffeerun.Sprites.Obstacles;
@@ -22,6 +23,9 @@ public class PlayState extends State {
     private static int OBSTACLE_SPACE = 600;
     private static int OBSTACLE_COUNT = 4;
     private ArrayList<Obstacles> obstacles;
+
+
+
     private ArrayList<Platforms> platforms;
     private static int platformsCount = 3;
     private static final int PLATFORM_SPACE = 700;
@@ -36,6 +40,7 @@ public class PlayState extends State {
     private ArrayList<Cups> cups;
     private Cups cup;
     private ShapeRenderer shapeRenderer;
+    private SpriteBatch sb1;
 
 
     private Texture inGameBackground;  // our actual in-game background
@@ -43,6 +48,14 @@ public class PlayState extends State {
     float scrollTime = 0;              // the rate in which the background moves
 
 
+    protected PlayState(){
+        student = new Student();
+        sb1 = new SpriteBatch();
+        platforms = new ArrayList<Platforms>();
+        for (int i = 1; i < platformsCount; i++) {
+            platforms.add(new Platforms());
+        }
+    }
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
@@ -55,13 +68,13 @@ public class PlayState extends State {
         platforms = new ArrayList<Platforms>();
 
         for (int i = 1; i < OBSTACLE_COUNT; i++) {
-            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
+            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + Gdx.graphics.getWidth()));
         }
         for (int i = 1; i < platformsCount; i++) {
-            platforms.add(new Platforms(i * OBSTACLE_SPACE + 60));
+            platforms.add(new Platforms(i * PLATFORM_SPACE + Gdx.graphics.getWidth()));
         }
         for(int i = 1;i<COFFEE_COUNT;i++){
-            cups.add(new Cups(i * COFFEE_SPACE + 30));
+            cups.add(new Cups(i * COFFEE_SPACE + Gdx.graphics.getWidth()));
         }
 
         inGameBackground = new Texture("backgground.png");
@@ -82,39 +95,27 @@ public class PlayState extends State {
     }
     protected PlayState(GameStateManager gsm, Texture selectedchar){
         super(gsm);
-        shapeRenderer = new ShapeRenderer();
-        student = new Student((graphics.getWidth()/10)+100,(graphics.getWidth()/10)-50, selectedchar); //recongigure this for every screen (screemheight/8)
-//        obstacle = new Obstacles(500);
-        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
+        student = new Student(200,0, selectedchar);
         obstacles = new ArrayList<Obstacles>();
-        cups = new ArrayList<Cups>();
-        platforms = new ArrayList<Platforms>();
-
-        for (int i = 1; i < OBSTACLE_COUNT; i++) {
+        for(int i = 1;i<OBSTACLE_COUNT;i++){
             obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
         }
-        for (int i = 1; i < platformsCount; i++) {
-            platforms.add(new Platforms(i * OBSTACLE_SPACE + 60));
-        }
+        cups = new ArrayList<Cups>();
         for(int i = 1;i<COFFEE_COUNT;i++){
             cups.add(new Cups(i * COFFEE_SPACE + 30));
         }
 
-        inGameBackground = new Texture("backgground.png");
+        inGameBackground = new Texture("mario.jpeg");
 
         // this allows us to use an image to represent our health-bar
         healthBar = new Texture("plain-white-background.jpg");
 
-        cam.setToOrtho(false, graphics.getWidth(),graphics.getHeight());
 
         // setWrap wraps our background and backgroundSprite actually sets it as our moving background
         inGameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-        //why the is the image being weird
-        backgroundSprite = new Sprite(inGameBackground, 0,900, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+        //why the fuck is the image being weird
+        backgroundSprite = new Sprite(inGameBackground, 0,-600, graphics.getWidth() , graphics.getHeight());
         input = Gdx.input;
-
-
-
     }
 
     //testing constructor
@@ -122,7 +123,10 @@ public class PlayState extends State {
         super(gsm);
         this.student = student;
         this.input = input;
+
     }
+
+
     @Override
     protected void handleInput() {
 
@@ -139,7 +143,7 @@ public class PlayState extends State {
 
 
 
-  
+
 
     @Override
     public void update(float dt) {
@@ -167,12 +171,12 @@ public class PlayState extends State {
         }
 
         for(Cups cup : cups) {
-                if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
-                        cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
-                }
+            if (cam.position.x - (cam.viewportWidth / 2) > cup.getBounds().x + cup.getBounds().getWidth()) {
+                cup.reposition(cup.getBounds().x + ((30 + COFFEE_SPACE) * COFFEE_COUNT));
+            }
 
 
-    }
+        }
 
         for(Platforms platform : platforms) {
             if (cam.position.x - (cam.viewportWidth / 2) > platform.getPlatformCollisionBounds().x + platform.getPlatformCollisionBounds().getWidth()) {
@@ -183,7 +187,7 @@ public class PlayState extends State {
         }
         cam.update();
 
-        }
+    }
 
     public void createObstacles(){
 
@@ -193,7 +197,7 @@ public class PlayState extends State {
 
     public void decrementHealth(Graphics graphics){
         if(health*(graphics.getWidth() -100)>0) {
-            this.health -= .004f;
+            this.health -= .00004f;
         }
         else{
             gsm.set(new MenuState(gsm));
@@ -209,7 +213,7 @@ public class PlayState extends State {
         /* the following 3 lines of code below controls the rate at which the background moves and if it reaches
             a certain threshold then it resets
         */
-        scrollTime += 0.01f;
+        scrollTime += 0.008f;
         if(scrollTime >=1.0f) {
             scrollTime = 0.0f;
         }
@@ -235,17 +239,17 @@ public class PlayState extends State {
         }
         for(Obstacles obstacle : obstacles){
             if(!collision) {
-                sb.draw(obstacle.getObstacleTexture(), obstacle.getObstacleCollisionBounds().x -= 20, obstacle.getObstacleCollisionBounds().y);
+                sb.draw(obstacle.getObstacleTexture(), obstacle.getObstacleCollisionBounds().x -= 5, obstacle.getObstacleCollisionBounds().y);
             }
             if(obstacle.collides(student.getPlayerBounds())){
 
-                if(health>.1){
-                    health-=.01f;
-                }
-                else{
-                    gsm.set(new MenuState(gsm));
-
-                }
+//                if(health>.1){
+//                    health-=.005f;
+//                }
+//                else{
+//                    gsm.set(new MenuState(gsm));
+//
+//                }
             }
             collision = false;
             cam.update();
@@ -254,8 +258,8 @@ public class PlayState extends State {
         }
         int counterCup = 0;
         for(Cups cup : cups) {
-                if (!obstacles.get(counterCup).collides(cup.getBounds()) && cup.getBtmPos().y > student.getPlayerBounds().getHeight()) {
-                    sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 20, cup.getBounds().y, 75, 100);
+            if (!obstacles.get(counterCup).collides(cup.getBounds()) && cup.getBtmPos().y > student.getPlayerBounds().getHeight()) {
+                sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 5, cup.getBounds().y, 75, 100);
                 if(cup.collides(student.getPlayerBounds())) {
                     if(health<1) {
                         health += .07f;
@@ -263,7 +267,7 @@ public class PlayState extends State {
                     sb.draw(cup.getCoffeeCup(), cup.getBounds().x, cup.getBounds().y-=1000);
                 }
 
-        }
+            }
 
 
             cam.update();
@@ -274,23 +278,23 @@ public class PlayState extends State {
 
         for(Platforms platform : platforms) {
             if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
-                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 20, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
+                sb.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
                 if (platform.collides(student.getPlayerBounds())){
 //                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
 //                    student.getVelocity().y = 0;
 //                    student.getPosition().y = platform.getPlatformCollisionBounds().getY()-100;
 //                }
 //                else {
-                    student.getVelocity().y = 0;
-                    student.getPosition().y = platform.getPlatformTexturePosition().y + 30;
+                    student.platform_collision(platform.getPlatformTexturePosition().y + 30);
 //                }
 //                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
                 }
+
             }
-
-
-
             cam.update();
+
+
+
         }
 
         // previous x value was CoffeeRun.V_WIDTH-100 and y value was CoffeeRun.V_HEIGHT-1
@@ -323,12 +327,40 @@ public class PlayState extends State {
     public int getObstacleCount(){
         return obstacles.size();
     }
+    public int getPlatformCount() { return platforms.size();}
 
     public int getCupsCount(){
         return 12;
     }
     public Cups getCup(){
         return new Cups(12);
+    }
+
+    public void platformCollisionAndDetection(){
+        for(Platforms platform : platforms) {
+            if(platform.getPlatformCollisionBounds().y>student.getPlayerBounds().getHeight()) {
+                sb1.draw(platform.getPlatformTexture(), platform.getPlatformCollisionBounds().x -= 5, platform.getPlatformCollisionBounds().y, platform.getPlatformTexture().getWidth(), platform.getPlatformTexture().getHeight());
+                if (platform.collides(student.getPlayerBounds())){
+//                if(student.getPlayerBounds().getY()<platform.getPlatformCollisionBounds().getY()){
+//                    student.getVelocity().y = 0;
+//                    student.getPosition().y = platform.getPlatformCollisionBounds().getY()-100;
+//                }
+//                else {
+                    student.platform_collision(platform.getPlatformTexturePosition().y + 30);
+//                }
+//                student.getPosition().y = platform.getPlatformTexture().getHeight() ;
+                }
+
+            }
+            cam.update();
+
+
+
+        }
+    }
+
+    public int getPlatforms() {
+        return platforms.size();
     }
 
 

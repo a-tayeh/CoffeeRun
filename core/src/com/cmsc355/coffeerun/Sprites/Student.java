@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+
+import com.badlogic.gdx.math.Rectangle;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
@@ -41,18 +42,18 @@ public class Student extends Sprite {
 
 
     }
+
+    public void platform_collision(float value){
+        getVelocity().y = 0;
+        getPosition().y = value;
+    }
     public Student(){
 
     }
     public Student(int x, int y, Texture sp){
-        this.yOriginal = y;
-        position = new Vector3(0,0,0);
-        velocity = new Vector3(x,y,0);
+        position = new Vector3(x,y,0);
+        velocity = new Vector3(0,0,0);
         student = new Texture(sp.getTextureData());
-        playerBounds = new Rectangle(x, y, (graphics.getWidth()/10), (graphics.getWidth()/10));
-        flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
-        sound = true;
-        //  colliding = false;
     }
 
 
@@ -60,6 +61,7 @@ public class Student extends Sprite {
     public Student(int x, int y, int z) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, y, 0);
+        playerBounds = new Rectangle(x, y, 10, 10);
     }
 
     public void update(float dt)
@@ -108,7 +110,7 @@ public class Student extends Sprite {
     public void jump(){
         if(getPosition().y < Gdx.graphics.getHeight()) {
 //            if(velocity.y < Gdx.graphics.getHeight()/2){
-                velocity.y = Gdx.graphics.getHeight()/2;
+                velocity.y = 3000;
 //            }
 
         }

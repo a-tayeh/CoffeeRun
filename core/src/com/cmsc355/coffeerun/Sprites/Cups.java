@@ -1,5 +1,6 @@
 package com.cmsc355.coffeerun.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
@@ -26,7 +27,14 @@ public class Cups extends Sprite {
     public Cups(float x){
         coffeeCup = new Texture("coffee.png");
         rand = new Random();
-        btmPos = new Vector2(x, 300*rand.nextInt(FLUCTUATION+1));
+        int rand2 = rand.nextInt((FLUCTUATION));
+        if(rand2< Gdx.graphics.getHeight()/4){
+            btmPos = new Vector2(x, rand2+Gdx.graphics.getHeight()/4);
+        }
+        else{
+            btmPos = new Vector2(x, rand2);
+
+        }
         bounds = new Rectangle(btmPos.x, btmPos.y, 75, 100);
         remove = false;
     }
@@ -48,7 +56,14 @@ public class Cups extends Sprite {
     }
 
     public void reposition(float x){
-        btmPos.set(x, rand.nextInt(FLUCTUATION));
+        int rand2 = rand.nextInt((FLUCTUATION));
+        if(rand2< Gdx.graphics.getHeight()/4){
+            btmPos = new Vector2(x, rand2+Gdx.graphics.getHeight()/4);
+        }
+        else{
+            btmPos = new Vector2(x, rand2);
+
+        }
         bounds.setPosition(btmPos.x, btmPos.y);
 
     }

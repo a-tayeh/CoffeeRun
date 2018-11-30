@@ -3,11 +3,12 @@ package com.cmsc355.coffeerun.States;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 public class CharacterStateTest{
@@ -28,7 +29,7 @@ public class CharacterStateTest{
 
         gsm.push(state);
         CharacterState characterState = new CharacterState(gsm, mockInput,1);
-        //characterState.doHandleInput( state, 1,false);
+        characterState.doHandleInput( state, 1,false);
 
 
         when(state.toString()).thenReturn("characterState");
@@ -56,7 +57,7 @@ public class CharacterStateTest{
 
         gsm.push(state);
         CharacterState characterState = new CharacterState(gsm, mockInput,1);
-       // characterState.doHandleInput( state, 2,false);
+        characterState.doHandleInput( state, 2,false);
 
 
         when(state.toString()).thenReturn("characterState");
