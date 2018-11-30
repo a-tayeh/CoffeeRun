@@ -58,7 +58,6 @@ public class CharacterState extends State {
             clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
             if(choice == 1) {
                 if (clickPosition.x < (Gdx.graphics.getWidth() / 2)) {
-                    //                gsm.set(new PlayState(gsm, char1));
                     gsm.set(new PlayState(gsm,chart));
                     if (doDispose)
                         dispose();
@@ -66,10 +65,12 @@ public class CharacterState extends State {
                 }
             }
             if(choice == 2){
-//                gsm.set(new PlayState(gsm, char2));
-                gsm.set(new PlayState(gsm,chart));
-                if(doDispose)
-                    dispose();
+                   if (clickPosition.x > (Gdx.graphics.getWidth() / 2)) {
+                    gsm.set(new PlayState(gsm,chart));
+                    if (doDispose)
+                        dispose();
+
+                }
             }
         }
     }
