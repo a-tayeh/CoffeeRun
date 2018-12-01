@@ -20,7 +20,7 @@ public class CharacterState extends State {
         this.input = Gdx.input;
         char1 = new Texture("peach256.png");
         char2 = new Texture("orange.png");
-        bg = new Texture("mario.jpeg");
+        bg = new Texture("backgground.png");
         clickPosition = new Vector3();
     }
 
@@ -48,20 +48,24 @@ public class CharacterState extends State {
                 clickPosition.set(input.getX(), input.getY(), 0); // screen coordinates.
                 if (clickPosition.x < (Gdx.graphics.getWidth() / 2)) {
                     gsm.set(new PlayState(gsm,chart));
-                    if (doDispose)
-                        dispose();
+                    dispose();
 
                 }
             }
             if(choice == 2){
                    if (clickPosition.x > (Gdx.graphics.getWidth() / 2)) {
                     gsm.set(new PlayState(gsm,chart));
-                    if (doDispose)
                         dispose();
 
                 }
             }
         }
+    }
+    public void doHandleInput(State curState,int choice, boolean doDispose ){
+        if (choice == 1)
+            doHandleInput(char1, choice, doDispose);
+        else
+            doHandleInput(char2,choice, doDispose);
     }
 
     @Override
