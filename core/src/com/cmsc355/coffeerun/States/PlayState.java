@@ -95,27 +95,37 @@ public class PlayState extends State {
     }
     protected PlayState(GameStateManager gsm, Texture selectedchar){
         super(gsm);
-        student = new Student(200,0, selectedchar);
+        shapeRenderer = new ShapeRenderer();
+        student = new Student((graphics.getWidth()/10)+100,(graphics.getWidth()/10)-50, selectedchar); //recongigure this for every screen (screemheight/8)
+//        obstacle = new Obstacles(500);
+        cam.setToOrtho(false, graphics.getWidth()/5, graphics.getHeight());
         obstacles = new ArrayList<Obstacles>();
-        for(int i = 1;i<OBSTACLE_COUNT;i++){
-            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + 52));
-        }
         cups = new ArrayList<Cups>();
+        platforms = new ArrayList<Platforms>();
+
+        for (int i = 1; i < OBSTACLE_COUNT; i++) {
+            obstacles.add(new Obstacles(i * OBSTACLE_SPACE + Gdx.graphics.getWidth()));
+        }
+        for (int i = 1; i < platformsCount; i++) {
+            platforms.add(new Platforms(i * PLATFORM_SPACE + Gdx.graphics.getWidth()));
+        }
         for(int i = 1;i<COFFEE_COUNT;i++){
-            cups.add(new Cups(i * COFFEE_SPACE + 30));
+            cups.add(new Cups(i * COFFEE_SPACE + Gdx.graphics.getWidth()));
         }
 
-        inGameBackground = new Texture("mario.jpeg");
+        inGameBackground = new Texture("backgground.png");
 
         // this allows us to use an image to represent our health-bar
         healthBar = new Texture("plain-white-background.jpg");
 
+        cam.setToOrtho(false, graphics.getWidth(),graphics.getHeight());
 
         // setWrap wraps our background and backgroundSprite actually sets it as our moving background
         inGameBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-        //why the fuck is the image being weird
-        backgroundSprite = new Sprite(inGameBackground, 0,-600, graphics.getWidth() , graphics.getHeight());
+        //why the is the image being weird
+        backgroundSprite = new Sprite(inGameBackground, 0,900, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
         input = Gdx.input;
+
     }
 
     //testing constructor
@@ -199,7 +209,7 @@ public class PlayState extends State {
 
     public void decrementHealth(Graphics graphics){
         if(health*(graphics.getWidth() -100)>0) {
-            this.health -= .00004f;
+            this.health -= .0004f;
         }
         else{
             gsm.set(new MenuState(gsm));
@@ -250,13 +260,13 @@ public class PlayState extends State {
             }
             if(obstacle.collides(student.getPlayerBounds())){
 
-//                if(health>.1){
-//                    health-=.005f;
-//                }
-//                else{
-//                    gsm.set(new MenuState(gsm));
-//
-//                }
+                if(health>.1){
+                    health-=.005f;
+                }
+                else{
+                    gsm.set(new MenuState(gsm));
+
+                }
             }
             collision = false;
             cam.update();
@@ -269,7 +279,7 @@ public class PlayState extends State {
                 sb.draw(cup.getCoffeeCup(), cup.getBounds().x -= 5, cup.getBounds().y, 75, 100);
                 if(cup.collides(student.getPlayerBounds())) {
                     if(health<1) {
-                        health += .07f;
+                        health += .04f;
                     }
                     sb.draw(cup.getCoffeeCup(), cup.getBounds().x, cup.getBounds().y-=1000);
                 }

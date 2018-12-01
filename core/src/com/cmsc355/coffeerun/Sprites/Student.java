@@ -58,6 +58,10 @@ public class Student extends Sprite {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
         student = new Texture(sp.getTextureData());
+        playerBounds = new Rectangle(x, y, (graphics.getWidth()/10), (graphics.getWidth()/10));
+        playerBounds = new Rectangle(x, y, (graphics.getWidth()/10), (graphics.getWidth()/10));
+        flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
+        sound = true;
     }
 
 
