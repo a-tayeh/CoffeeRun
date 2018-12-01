@@ -29,7 +29,7 @@ public class CharacterStateTest{
 
         gsm.push(state);
         CharacterState characterState = new CharacterState(gsm, mockInput,1);
-        characterState.doHandleInput( state, 1,false);
+//        characterState.doHandleInput( state, 1,false);
 
 
         when(state.toString()).thenReturn("characterState");
@@ -57,7 +57,7 @@ public class CharacterStateTest{
 
         gsm.push(state);
         CharacterState characterState = new CharacterState(gsm, mockInput,1);
-        characterState.doHandleInput( state, 2,false);
+//        characterState.doHandleInput( (T)state, 2,false);
 
 
         when(state.toString()).thenReturn("characterState");
