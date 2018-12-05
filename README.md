@@ -25,18 +25,18 @@ Closes jump, score ranking, platform and difficulty issues.
 
 Tests for iteration 3 can be found under states package (jump tests, difficultyTest, platform test and scoreTest)
 
-*Lint Tool Summary:
+*Lint Tool Summary
   - get rid of uncessary import statments.
   - privatize some variables and create getters for encapsulation purposes.
   - fix backward compatibility sdk path in gradle.build file
   - access static members via instance reference
   - delete unecessary methods
   
-  <Ignored lint fixes>
+  *Ignored lint fixes
     - empty methods that are inherited from sprite and only call its super class implementation are necessary for the game to work.
     - spelling in comments and assets png/jpg files
     - Unused Declaration 50 issues (fixing any of those would result in game crashing) some declaration may seem unused at first but
-        they're used in other methods later on.
+       they're used in other methods later on.
   
 
 # Video Demo Iteration 3
