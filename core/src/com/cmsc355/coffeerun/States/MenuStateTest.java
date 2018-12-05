@@ -7,15 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-@RunWith(MockitoJUnitRunner.class)
 public class MenuStateTest{
     GameStateManager gsm = new GameStateManager();
     //MenuState menu;

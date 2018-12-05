@@ -17,8 +17,7 @@ public abstract class State {
         this.gsm = gsm;
 
         cam = new OrthographicCamera();
-        //cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        //gamePort = new FitViewport(CoffeeRun.V_WIDTH,CoffeeRun.V_HEIGHT,cam);
+
         mouse = new Vector3();
     }
 

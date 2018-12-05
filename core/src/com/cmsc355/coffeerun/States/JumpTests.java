@@ -2,19 +2,29 @@ package com.cmsc355.coffeerun.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
-import com.cmsc355.coffeerun.Sprites.Platforms;
+import com.badlogic.gdx.Input;
 import com.cmsc355.coffeerun.Sprites.Student;
-
-import junit.framework.Assert;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
-public class JumpTests {
+public class JumpTests{
+    @Test
+    public void initialVelocityIsZero(){
+        Student student = new Student(5, 0, 0);
+        GameStateManager gsm = Mockito.mock(GameStateManager.class);
+        Input input = Mockito.mock(Input.class);
+        PlayState playState = new PlayState(gsm, input,student);
+        float initialVelocity = playState.getStudent().getVelocity().y;
+
+        assertEquals(initialVelocity,0,2.5);
+
+    }
+
+
 
     @Test
     public void jumpAndComeBackDown() {
@@ -25,8 +35,7 @@ public class JumpTests {
         float jumpInitiatedYValue = student.getVelocity().y;
         float afterV = 0;
         int counter = 0;
-        boolean z=true;
-        while (z && counter <3) {
+        while (counter < 3) {
             student.updateJump(.1f,-20);
             counter++;
             if(counter==3){
@@ -42,16 +51,14 @@ public class JumpTests {
 
     @Test
     public void JumpMultipleTimes() {
-//        Platforms platform = new Platforms();
         Student student = new Student(5, 100, 0);
         Gdx.graphics = Mockito.mock(Graphics.class);
 
         float initialV = student.getVelocity().y;
         float afterV = 0;
         int counter = 0;
-        boolean z=true;
-        while (z && counter <3) {
-            student.jumpTest(Gdx.graphics, student);
+        while (counter < 3) {
+            student.jumpTest(Gdx.graphics,student);
             student.updateJump(.000000001f,-10);
             counter++;
             if(counter==3){

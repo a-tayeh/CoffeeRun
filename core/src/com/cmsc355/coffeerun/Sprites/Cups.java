@@ -21,7 +21,6 @@ public class Cups extends Sprite {
     private static final int MOVEMENT = -100;
     private static final int FLUCTUATION = 1000;
     private Rectangle bounds;
-    private boolean remove;
 
 
     public Cups(float x){
@@ -36,7 +35,7 @@ public class Cups extends Sprite {
 
         }
         bounds = new Rectangle(btmPos.x, btmPos.y, 75, 100);
-        remove = false;
+        boolean remove = false;
     }
 
     public Texture getCoffeeCup() {

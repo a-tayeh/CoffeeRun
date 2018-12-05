@@ -28,6 +28,15 @@ public class Obstacles extends Sprite {
 
     }
 
+    public Obstacles(int x,int y){
+        rand = new Random();
+        obstacleTexturePosition = new Vector2(x, rand.nextInt(FLUCTUATION+1));
+        obstacleCollisionBounds = new Rectangle(obstacleTexturePosition.x-=5, obstacleTexturePosition.y,200,200);
+
+
+
+    }
+
     public Rectangle getObstacleCollisionBounds() {
         return obstacleCollisionBounds;
     }

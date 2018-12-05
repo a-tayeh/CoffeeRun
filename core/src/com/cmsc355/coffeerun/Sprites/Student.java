@@ -119,14 +119,13 @@ public class Student extends Sprite {
         if(getPosition().y < (Gdx.graphics.getHeight()-getStudent().getHeight())+(getyOriginal())) {
                 velocity.y = (Gdx.graphics.getHeight()-getStudent().getHeight());
         }
-        if(sound)
-            flap.play();
 
 }
 
     public void jumpTest(Graphics graphic, Student student){
         if(student.position.y > (graphic.getHeight()-student.getHeight())+getyOriginal()) {
-            velocity.add(graphic.getHeight()+student.velocity.y);
+            velocity.y += (graphic.getHeight()+student.velocity.y);
+
         }
 
 

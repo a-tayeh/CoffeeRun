@@ -63,8 +63,8 @@ public class MusicStateTest extends GameTest {
 
         CoffeeRun coffeeRun = new CoffeeRun(music);
         CoffeeRun.music.setVolume(0.8f);
-        musicState.doHandleInput(texture,1, coffeeRun.music, musicState,false);
-        double vol = coffeeRun.music.getVolume();
+        musicState.doHandleInput(texture,1, CoffeeRun.music, musicState,false);
+        double vol = CoffeeRun.music.getVolume();
 
 
 

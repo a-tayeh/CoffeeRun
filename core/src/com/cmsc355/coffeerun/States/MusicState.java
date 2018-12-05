@@ -18,7 +18,6 @@ public class MusicState extends State {
     private Input input;
     private Vector3 clickPosition;
     private CoffeeRun coffeeRun;
-    private Student student;
     public boolean soundOff;
     public MusicState(GameStateManager gsm){
         super(gsm);
@@ -29,7 +28,7 @@ public class MusicState extends State {
         this.input = Gdx.input;
         clickPosition = new Vector3();
         //coffeeRun = new CoffeeRun();
-        student = new Student(0,0);
+        Student student = new Student(0, 0);
         soundOff = true;
 
     }
@@ -43,8 +42,8 @@ public class MusicState extends State {
     @Override
     protected void handleInput() {
         doHandleInput(musicButton,1, CoffeeRun.music, new MusicState(gsm), false);
-        doHandleInput(soundButton, 2, coffeeRun.music, new MusicState(gsm), false);
-        doHandleInput(soundButton,3,coffeeRun.music, new MenuState(gsm), true);
+        doHandleInput(soundButton, 2, CoffeeRun.music, new MusicState(gsm), false);
+        doHandleInput(soundButton,3, CoffeeRun.music, new MenuState(gsm), true);
 
     }
 
@@ -70,7 +69,7 @@ public class MusicState extends State {
                 if (clickPosition.x > Gdx.graphics.getWidth() / 2 && clickPosition.x < Gdx.graphics.getWidth() / 2 + 2 * (texture.getWidth() / 10))
                     if (clickPosition.y > Gdx.graphics.getHeight() / 2 && clickPosition.y < Gdx.graphics.getHeight() / 2 + 2 * (texture.getWidth() / 10)) {
                         if (soundOff) {
-                            student.flap.setVolume(0, 0.0f);
+                            Student.flap.setVolume(0, 0.0f);
 //                        student.flap.
 //                        soundOff = false;
 //                    }

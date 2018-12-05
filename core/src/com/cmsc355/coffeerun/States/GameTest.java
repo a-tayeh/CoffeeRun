@@ -2,6 +2,7 @@ package com.cmsc355.coffeerun.States;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
@@ -32,6 +33,7 @@ public class GameTest {
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
         Input mockInput = Mockito.mock(Input.class);
+        Gdx.audio = Mockito.mock(Audio.class);
 
     }
 

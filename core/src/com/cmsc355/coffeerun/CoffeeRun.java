@@ -9,7 +9,6 @@ import com.cmsc355.coffeerun.States.GameStateManager;
 import com.cmsc355.coffeerun.States.MenuState;
 
 public class CoffeeRun extends Game {
-	private static int V_WIDTH =0;
 	public static int V_HEIGHT = 0;
 
 	//DisplayMetrics metrics = new DisplayMetrics();
@@ -43,7 +42,7 @@ public class CoffeeRun extends Game {
         gsm.push(new MenuState(gsm));
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
-		V_WIDTH = Gdx.graphics.getWidth();
+		int v_WIDTH = Gdx.graphics.getWidth();
 		V_HEIGHT = Gdx.graphics.getHeight();
 
 	}
